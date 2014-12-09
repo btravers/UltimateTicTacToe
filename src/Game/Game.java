@@ -135,9 +135,15 @@ public class Game {
 		for (int b=0; b<81; b+=27) {
 			for (int i=0; i<9 ; i+=3) {
 				for (int j=0; j<27; j+=9) {
-					display += " " + representation[this.babyTable[b+i+j]] + " " 
-							+ " " + representation[this.babyTable[b+i+1+j]] + " "
-							+ " " + representation[this.babyTable[b+i+2+j]] + " ";
+					if (this.daddyTable[(b+i+j)/9] != EMPTY) {
+						display += " " + representation[this.daddyTable[(b+i+j)/9]] + " " 
+								+ " " + representation[this.daddyTable[(b+i+j)/9]] + " "
+								+ " " + representation[this.daddyTable[(b+i+j)/9]] + " ";
+					} else {
+						display += " " + representation[this.babyTable[b+i+j]] + " " 
+								+ " " + representation[this.babyTable[b+i+1+j]] + " "
+								+ " " + representation[this.babyTable[b+i+2+j]] + " ";
+					}
 					if (j != 18) {
 						display += " || ";
 					}
@@ -145,7 +151,7 @@ public class Game {
 				display += "\n";
 			}
 			
-			if (b!=54) {
+			if (b != 54) {
 				display += "===================================\n";
 			}
 		}
