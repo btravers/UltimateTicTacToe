@@ -1,3 +1,4 @@
+package Game;
 
 public class Game {
 
@@ -129,23 +130,23 @@ public class Game {
 	
 	public String toString() {
 		String display = "";
+		String[] representation = {" ", "X", "O", "-"};
 		
-		for (int i=0 ; i<this.babyTable.length ; i++) {
-			if (i%27 == 0 && i!=0) {
-				display += "\n===================================\n";
-			} else if (i%9 == 0) {
+		for (int b=0; b<81; b+=27) {
+			for (int i=0; i<9 ; i+=3) {
+				for (int j=0; j<27; j+=9) {
+					display += " " + representation[this.babyTable[b+i+j]] + " " 
+							+ " " + representation[this.babyTable[b+i+1+j]] + " "
+							+ " " + representation[this.babyTable[b+i+2+j]] + " ";
+					if (j != 18) {
+						display += " || ";
+					}
+				}
 				display += "\n";
-			}else if (i%3 == 0) {
-				display += " || ";
 			}
 			
-			int square = i/9;
-			
-			String[] representation = {" ", "X", "O", "-"};
-			if (this.daddyTable[square] != EMPTY) {
-				display += " " + representation[this.daddyTable[square]] + " ";
-			} else {
-				display += " " + representation[this.babyTable[i]] + " ";
+			if (b!=54) {
+				display += "===================================\n";
 			}
 		}
 		
