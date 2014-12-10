@@ -17,7 +17,7 @@ public class Game {
 	
 	private int currentPlayer;
 	
-	private int nbMoves;
+	private int nbFreeSquare;
 	
 	public static final int EMPTY = 0;
 	public static final int CROSS = 1;
@@ -27,7 +27,7 @@ public class Game {
 	public Game() {
 		this.currentPlayer = CROSS;
 
-		this.nbMoves = 0;
+		this.nbFreeSquare = 81;
 		
 		this.babyTable = new int[81];
 		this.daddyTable = new int[9];
@@ -48,24 +48,33 @@ public class Game {
 	}
 	
 	public void play(int move) {
+		int square = move / this.daddyTable.length;
+		
 		this.babyTable[move] = this.currentPlayer;
+		this.movesPerDaddySquare[square]++;
+		this.nbFreeSquare--;
 		
 		if (this.winDaddySqare(move)) {
-			this.daddyTable[move / this.daddyTable.length] = this.currentPlayer;
-		} else if (this.movesPerDaddySquare[move / this.daddyTable.length] == 9) {
-			this.daddyTable[move / this.daddyTable.length] = DRAW;
+			this.daddyTable[square] = this.currentPlayer;
+			this.nbFreeSquare -= (9-this.movesPerDaddySquare[square]);
+		} else if (this.movesPerDaddySquare[square] == 9) {
+			this.daddyTable[square] = DRAW;
 		}
-	
-		this.nbMoves++;
 		
 		this.changePlayer();
 	}
 	
 	public void unplay(int move) {
-		this.babyTable[move] = EMPTY;
-		this.daddyTable[move / this.daddyTable.length] = EMPTY;
+		int square = move / this.daddyTable.length;
 		
-		this.nbMoves--;
+		if (this.daddyTable[square] != EMPTY) {
+			this.daddyTable[square] = EMPTY;
+			this.nbFreeSquare += (9-this.movesPerDaddySquare[square]);	
+		}
+		
+		this.babyTable[move] = EMPTY;
+		this.movesPerDaddySquare[square]--;
+		this.nbFreeSquare++;
 		
 		this.changePlayer();
 	}
@@ -88,12 +97,13 @@ public class Game {
 			return this.currentPlayer == CROSS ? CIRCLE : CROSS;
 		}
 		
-		if (this.nbMoves == 81) {
+		if (this.nbFreeSquare == 0) {
 			return DRAW;
 		}
 		
 		return 0;
 	}
+	
 	private boolean winHorizontally(int[] table, int normalizedMove) {
 		int tmp = normalizedMove/3;
 		return table[tmp]!=DRAW && table[tmp] == table[tmp+1] && table[tmp+1] == table[tmp+2];
