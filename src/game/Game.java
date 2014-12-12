@@ -56,7 +56,7 @@ public class Game {
 		this.movesPerDaddySquare[square]++;
 		this.nbFreeSquare--;
 		
-		if (this.winDaddySqare(move)) {
+		if (this.winDaddySquare(move)) {
 			this.daddyTable[square] = this.currentPlayer;
 			this.nbFreeSquare -= (9-this.movesPerDaddySquare[square]);
 		} else if (this.movesPerDaddySquare[square] == 9) {
@@ -124,7 +124,7 @@ public class Game {
 		return table[4] == table[0] && table[4] == table[8] || table[4] == table[2] && table[4] == table[6];
 	}
 	
-	private boolean winDaddySqare(int move) {
+	private boolean winDaddySquare(int move) {
 		int[] subtable = new int[9];
 		int normalizedMove = move%this.daddyTable.length;
 		int rg = move/9;
