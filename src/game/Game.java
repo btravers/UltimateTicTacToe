@@ -41,6 +41,8 @@ public class Game {
 			this.daddyTable[i] = EMPTY;
 			this.movesPerDaddySquare[i] = 0;
 		}
+		
+		this.babyTable[80] = 1;
 	}
 	
 	public int getCurrentPlayer() {
@@ -148,10 +150,10 @@ public class Game {
 			for (int i=0; i<9 ; i+=3) {
 				for (int j=0; j<27; j+=9) {
 					for (int k=0; k<3; k++) {
-						if (this.daddyTable[(b+i+j)/9] != EMPTY) {
+						if (this.daddyTable[(b+i+j+k)/9] != EMPTY) {
 							display += " " + representation[this.daddyTable[(b+i+j+k)/9]] + " ";
 						} else {
-							display += " " + representation[this.daddyTable[b/27+j/9]] + " ";
+							display += " " + representation[this.babyTable[b+i+j+k]] + " ";
 						}
 					}
 			
