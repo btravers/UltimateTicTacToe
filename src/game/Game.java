@@ -171,6 +171,7 @@ public class Game {
 	
 	private boolean winHorizontally(int[] table, int normalizedMove) {
 		int tmp = normalizedMove/3;
+		tmp *= 3;
 		return table[tmp] != DRAW && table[tmp] != EMPTY && table[tmp] == table[tmp+1] && table[tmp+1] == table[tmp+2];
 	}
 	
@@ -180,7 +181,8 @@ public class Game {
 	}
 	
 	private boolean winDiagonally(int[] table, int normalizedMove) {
-		if (normalizedMove % 2 != 0 || table[4] == DRAW || table[4] == EMPTY) {
+		// NormalizedMove is even.
+		if (normalizedMove%2 != 0 || table[4] == DRAW || table[4] == EMPTY) {
 			return false;
 		}
 	
