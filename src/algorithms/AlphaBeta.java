@@ -9,6 +9,7 @@ public class AlphaBeta {
 	
 	private Game game;
 	private Stack<Integer> playedMoves;
+	private Stack<Integer> bestMoves;
 	
 	public AlphaBeta(Game game) {
 		this.game = game;
@@ -32,12 +33,17 @@ public class AlphaBeta {
 		
 		for (Integer move : successors) {
 			Stack<Integer> tmp = new Stack<Integer>();
+			
+			game.play(move);
+			this.playedMoves.add(move);
 			int vbis = minValue(alpha, beta, tmp);
+			this.playedMoves.remove(move);
+			game.unplay(move);
 			
 			if (vbis > v) {
 				v = vbis;
-				playedMoves = tmp;
-				playedMoves.push(move);
+				this.bestMoves = tmp;
+				this.bestMoves.push(move);
 			}
 			
 			if (v >= beta) {
@@ -63,12 +69,17 @@ public class AlphaBeta {
 		
 		for (Integer move : successors) {
 			Stack<Integer> tmp = new Stack<Integer>();
+			
+			game.play(move);
+			this.playedMoves.add(move);
 			int vbis = maxValue(alpha, beta, tmp);
+			this.playedMoves.remove(move);
+			game.unplay(move);
 			
 			if (vbis < v) {
 				v = vbis;
-				playedMoves = tmp;
-				playedMoves.push(move);
+				this.bestMoves = tmp;
+				this.bestMoves.push(move);
 			}
 			
 			if (v <= alpha) {
@@ -81,4 +92,11 @@ public class AlphaBeta {
 		return v;
 	}
 	
+	public static void main(String[] args) {
+		AlphaBeta ab = new AlphaBeta(new Game());
+		
+		System.out.println(ab.run());
+		
+		System.out.println(ab.game.toString());
+	}
 }
