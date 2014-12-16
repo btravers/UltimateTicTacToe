@@ -193,6 +193,7 @@ public class Game {
 		int[] subtable = new int[9];
 		int normalizedMove = move%this.daddyTable.length;
 		int rg = move / 9;
+		rg *= 9;
 	
 		for (int i=0 ; i<9 ; i++) {
 			subtable[i] = this.babyTable[i+rg];
