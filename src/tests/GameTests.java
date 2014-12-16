@@ -10,7 +10,7 @@ public class GameTests {
 	protected Game game;
 	
 	@Before
-	protected void setUp() {
+	public void setUp() {
 		game = new Game();
 	}
 	

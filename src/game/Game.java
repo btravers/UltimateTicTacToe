@@ -41,8 +41,6 @@ public class Game {
 			this.daddyTable[i] = EMPTY;
 			this.movesPerDaddySquare[i] = 0;
 		}
-		
-		this.babyTable[80] = 1;
 	}
 	
 	public int getCurrentPlayer() {
@@ -108,12 +106,12 @@ public class Game {
 	
 	private boolean winHorizontally(int[] table, int normalizedMove) {
 		int tmp = normalizedMove/3;
-		return table[tmp]!=DRAW && table[tmp] == table[tmp+1] && table[tmp+1] == table[tmp+2];
+		return table[tmp] != DRAW && table[tmp] == table[tmp+1] && table[tmp+1] == table[tmp+2];
 	}
 	
 	private boolean winVertically(int[] table, int normalizedMove) {
 		int tmp = normalizedMove%3;
-		return table[tmp]!=DRAW && table[tmp] == table[tmp+3] && table[tmp+3] == table[tmp+6];
+		return table[tmp] != DRAW && table[tmp] == table[tmp+3] && table[tmp+3] == table[tmp+6];
 	}
 	
 	private boolean winDiagonally(int[] table, int normalizedMove) {
@@ -138,8 +136,14 @@ public class Game {
 				|| this.winDiagonally(subtable, normalizedMove);
 	}
 	
-	public int getScore() {
-		return this.currentPlayer == CROSS ? 1 : -1;
+	public int getScore(int player) {
+		switch(player){
+			case CROSS:
+				return 1;
+			case CIRCLE:
+				return -1;
+		}
+		return 0;	
 	}
 	
 	public String toString() {
