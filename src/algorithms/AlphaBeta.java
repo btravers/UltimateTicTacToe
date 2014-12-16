@@ -14,6 +14,7 @@ public class AlphaBeta {
 	public AlphaBeta(Game game) {
 		this.game = game;
 		this.playedMoves = new Stack<Integer>();
+		this.bestMoves = new Stack<Integer>();
 	}
 	
 	public int run() {
