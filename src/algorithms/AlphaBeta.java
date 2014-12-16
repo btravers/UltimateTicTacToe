@@ -8,40 +8,37 @@ import java.util.Stack;
 public class AlphaBeta {
 	
 	private Game game;
-	private Stack<Integer> playedMoves;
 	private Stack<Integer> bestMoves;
 	
 	public AlphaBeta(Game game) {
 		this.game = game;
-		this.playedMoves = new Stack<Integer>();
 		this.bestMoves = new Stack<Integer>();
 	}
 	
 	public int run() {
-		return maxValue(Integer.MIN_VALUE, Integer.MAX_VALUE);
+		return maxValue(Integer.MIN_VALUE, Integer.MAX_VALUE, this.bestMoves);
 	}
 
-	private int maxValue(int alpha, int beta) {
-		int lastMove = this.playedMoves.isEmpty() ? -1 : this.playedMoves.peek();
-		
-		int result = game.isEndOfGame(lastMove);
+	private int maxValue(int alpha, int beta, Stack<Integer> actionList) {
+		int result = this.game.isEndOfGame();
 		if (result != 0) {
-			return game.getScore(result);
+			return this.game.getScore(result);
 		}
 		
 		int v = Integer.MIN_VALUE;
-		List<Integer> successors = game.getSuccessors(lastMove);
+		List<Integer> successors = this.game.getSuccessors();
 		
-		for (Integer move : successors) {			
-			game.play(move);
-			this.playedMoves.add(move);
-			int vbis = minValue(alpha, beta);
-			this.playedMoves.remove(move);
-			game.unplay(move);
+		for (Integer move : successors) {
+			Stack<Integer> tmp = new Stack<Integer>();
+			
+			this.game.play(move);
+			int vbis = minValue(alpha, beta, tmp);
+			this.game.unplay();
 			
 			if (vbis > v) {
 				v = vbis;
-				this.bestMoves.push(move);
+				actionList.addAll(tmp);
+				actionList.push(move);
 			}
 			
 			if (v >= beta) {
@@ -54,27 +51,27 @@ public class AlphaBeta {
 		return v;
 	}
 	
-	private int minValue(int alpha, int beta) {
-		int lastMove = this.playedMoves.isEmpty() ? -1 : this.playedMoves.peek();
+	private int minValue(int alpha, int beta, Stack<Integer> actionList) {
 		
-		int result = game.isEndOfGame(lastMove);
+		int result = game.isEndOfGame();
 		if (result != 0) {
 			return game.getScore(result);
 		}
 		
 		int v = Integer.MAX_VALUE;
-		List<Integer> successors = game.getSuccessors(lastMove);
+		List<Integer> successors = game.getSuccessors();
 		
-		for (Integer move : successors) {			
+		for (Integer move : successors) {
+			Stack<Integer> tmp = new Stack<Integer>();
+			
 			game.play(move);
-			this.playedMoves.add(move);
-			int vbis = maxValue(alpha, beta);
-			this.playedMoves.remove(move);
-			game.unplay(move);
+			int vbis = maxValue(alpha, beta, tmp);
+			game.unplay();
 			
 			if (vbis < v) {
 				v = vbis;
-				this.bestMoves.push(move);
+				actionList.addAll(tmp);
+				actionList.push(move);
 			}
 			
 			if (v <= alpha) {

@@ -2,6 +2,7 @@ package game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class Game {
 	
@@ -30,6 +31,11 @@ public class Game {
 	 */
 	private int nbFreeSquare;
 	
+	/**
+	 * Stack of played moves.
+	 */
+	private Stack<Integer> playedMoves;
+	
 	public static final int EMPTY = 0;
 	public static final int CROSS = 1;
 	public static final int CIRCLE = 2;
@@ -43,6 +49,7 @@ public class Game {
 		this.babyTable = new int[81];
 		this.daddyTable = new int[9];
 		this.movesPerDaddySquare = new int[9];
+		this.playedMoves = new Stack<Integer>();
 		
 		for (int i=0; i<this.babyTable.length; i++) {
 			this.babyTable[i] = EMPTY;
@@ -58,16 +65,18 @@ public class Game {
 		return this.currentPlayer;
 	}
 	
-	public List<Integer> getSuccessors(int lastMove) {
+	public List<Integer> getSuccessors() {
 		List<Integer> successors = new ArrayList<Integer>();
 		
-		if (lastMove == -1) {
+		if (this.playedMoves.empty()) {
 			for (int i=0; i<81; i++) {
 				successors.add(i);
 			}
 			
 			return successors;
 		}
+		
+		int lastMove = this.playedMoves.peek(); 
 				
 		int square = lastMove/9;
 		int newSquare = lastMove - square*9;
@@ -115,23 +124,26 @@ public class Game {
 			this.daddyTable[square] = DRAW;
 		}
 		
-		System.out.println("Play " + move);
+		this.playedMoves.push(move);
+		
 		this.changePlayer();
 	}
 	
-	public void unplay(int move) {
-		int square = move/9;
+	public void unplay() {
+		
+		int lastMove = this.playedMoves.pop();
+		
+		int square = lastMove/9;
 		
 		if (this.daddyTable[square] != EMPTY) {
 			this.daddyTable[square] = EMPTY;
 			this.nbFreeSquare += (9-this.movesPerDaddySquare[square]);	
 		}
 		
-		this.babyTable[move] = EMPTY;
+		this.babyTable[lastMove] = EMPTY;
 		this.movesPerDaddySquare[square]--;
 		this.nbFreeSquare++;
 		
-		System.out.println("Unplay " + move);
 		this.changePlayer();
 	}
 	
@@ -147,14 +159,16 @@ public class Game {
 	 * @param move
 	 * @return CROSS, CIRCLE, DRAW or 0
 	 */
-	public int isEndOfGame(int move) {
+	public int isEndOfGame() {
 		
 		// The board is empty.
-		if (move == -1) {
+		if (this.playedMoves.empty()) {
 			return 0;
 		}
 		
-		int normalizedMove = move/9;
+		int lastMove = this.playedMoves.peek();
+		
+		int normalizedMove = lastMove/9;
 		
 		if(this.winHorizontally(this.daddyTable, normalizedMove)
 				|| this.winVertically(this.daddyTable, normalizedMove)
