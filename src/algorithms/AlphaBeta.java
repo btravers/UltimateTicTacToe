@@ -23,8 +23,9 @@ public class AlphaBeta {
 	private int maxValue(int alpha, int beta, Stack<Integer> playedMoves) {
 		int lastMove = playedMoves.isEmpty() ? -1 : playedMoves.peek();
 		
-		if (game.isEndOfGame(lastMove) != 0) {
-			return game.getScore();
+		int result = game.isEndOfGame(lastMove);
+		if (result != 0) {
+			return game.getScore(result);
 		}
 		
 		int v = Integer.MIN_VALUE;
@@ -53,8 +54,9 @@ public class AlphaBeta {
 	private int minValue(int alpha, int beta, Stack<Integer> playedMoves) {
 		int lastMove = playedMoves.isEmpty() ? -1 : playedMoves.peek();
 		
-		if (game.isEndOfGame(lastMove) != 0) {
-			return game.getScore();
+		int result = game.isEndOfGame(lastMove);
+		if (result != 0) {
+			return game.getScore(result);
 		}
 		
 		int v = Integer.MAX_VALUE;
