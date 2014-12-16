@@ -82,11 +82,13 @@ public class Game {
 				}
 			}
 		} else {
-			for (int i=0; i<9; i++) {
+			for (int i=0; i<this.daddyTable.length; i++) {
 				if (this.daddyTable[i] == EMPTY) {
 					int tmp = i*9;
 					for (int j=tmp; j<tmp+9; j++) {
-						successors.add(j);
+						if (this.babyTable[j] == EMPTY) {
+							successors.add(j);
+						}
 					}
 				}
 			}
@@ -146,7 +148,7 @@ public class Game {
 	public int isEndOfGame(int move) {
 		
 		// The board is empty.
-		if (move != -1) {
+		if (move == -1) {
 			return 0;
 		}
 		
