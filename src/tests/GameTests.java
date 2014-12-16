@@ -28,7 +28,7 @@ public class GameTests {
 	@Test
 	public void testUnplay() {
 		game.play(0);
-		game.unplay(0);
+		game.unplay();
 		assertEquals(game.getCurrentPlayer(), Game.CROSS);
 	}
 }

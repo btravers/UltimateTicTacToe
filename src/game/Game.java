@@ -221,9 +221,9 @@ public class Game {
 	public int getScore(int player) {
 		switch(player){
 			case CROSS:
-				return 1;
+				return 82 - this.playedMoves.size();
 			case CIRCLE:
-				return -1;
+				return this.playedMoves.size() - 82;
 		}
 		return 0;	
 	}
