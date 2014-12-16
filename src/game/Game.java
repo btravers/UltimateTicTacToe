@@ -228,6 +228,15 @@ public class Game {
 		return 0;	
 	}
 	
+	public int eval() {
+		int score = 0;
+		for (int i = 0; i < this.daddyTable.length; i++) {
+			score += this.daddyTable[i] == CROSS ? 1 : this.daddyTable[i] == CIRCLE ? -1 : 0;
+		}
+		
+		return score;
+	}
+	
 	public String toString() {
 		String display = "";
 		String[] representation = {" ", "X", "O", "-"};
