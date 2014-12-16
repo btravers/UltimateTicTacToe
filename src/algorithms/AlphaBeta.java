@@ -17,11 +17,11 @@ public class AlphaBeta {
 	}
 	
 	public int run() {
-		return maxValue(Integer.MIN_VALUE, Integer.MAX_VALUE, this.playedMoves);
+		return maxValue(Integer.MIN_VALUE, Integer.MAX_VALUE);
 	}
 
-	private int maxValue(int alpha, int beta, Stack<Integer> playedMoves) {
-		int lastMove = playedMoves.isEmpty() ? -1 : playedMoves.peek();
+	private int maxValue(int alpha, int beta) {
+		int lastMove = this.playedMoves.isEmpty() ? -1 : this.playedMoves.peek();
 		
 		int result = game.isEndOfGame(lastMove);
 		if (result != 0) {
@@ -31,18 +31,15 @@ public class AlphaBeta {
 		int v = Integer.MIN_VALUE;
 		List<Integer> successors = game.getSuccessors(lastMove);
 		
-		for (Integer move : successors) {
-			Stack<Integer> tmp = new Stack<Integer>();
-			
+		for (Integer move : successors) {			
 			game.play(move);
 			this.playedMoves.add(move);
-			int vbis = minValue(alpha, beta, tmp);
+			int vbis = minValue(alpha, beta);
 			this.playedMoves.remove(move);
 			game.unplay(move);
 			
 			if (vbis > v) {
 				v = vbis;
-				this.bestMoves = tmp;
 				this.bestMoves.push(move);
 			}
 			
@@ -56,8 +53,8 @@ public class AlphaBeta {
 		return v;
 	}
 	
-	private int minValue(int alpha, int beta, Stack<Integer> playedMoves) {
-		int lastMove = playedMoves.isEmpty() ? -1 : playedMoves.peek();
+	private int minValue(int alpha, int beta) {
+		int lastMove = this.playedMoves.isEmpty() ? -1 : this.playedMoves.peek();
 		
 		int result = game.isEndOfGame(lastMove);
 		if (result != 0) {
@@ -67,18 +64,15 @@ public class AlphaBeta {
 		int v = Integer.MAX_VALUE;
 		List<Integer> successors = game.getSuccessors(lastMove);
 		
-		for (Integer move : successors) {
-			Stack<Integer> tmp = new Stack<Integer>();
-			
+		for (Integer move : successors) {			
 			game.play(move);
 			this.playedMoves.add(move);
-			int vbis = maxValue(alpha, beta, tmp);
+			int vbis = maxValue(alpha, beta);
 			this.playedMoves.remove(move);
 			game.unplay(move);
 			
 			if (vbis < v) {
 				v = vbis;
-				this.bestMoves = tmp;
 				this.bestMoves.push(move);
 			}
 			

@@ -113,7 +113,7 @@ public class Game {
 			this.daddyTable[square] = DRAW;
 		}
 		
-		//System.out.println("Play " + move);
+		System.out.println("Play " + move);
 		this.changePlayer();
 	}
 	
@@ -129,6 +129,7 @@ public class Game {
 		this.movesPerDaddySquare[square]--;
 		this.nbFreeSquare++;
 		
+		System.out.println("Unplay " + move);
 		this.changePlayer();
 	}
 	
