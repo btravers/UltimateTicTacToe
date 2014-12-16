@@ -1,5 +1,8 @@
 package game;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Game {
 	
 	/**
@@ -41,11 +44,11 @@ public class Game {
 		this.daddyTable = new int[9];
 		this.movesPerDaddySquare = new int[9];
 		
-		for (int i=0 ; i < this.babyTable.length ; i++) {
+		for (int i=0; i<this.babyTable.length; i++) {
 			this.babyTable[i] = EMPTY;
 		}
 		
-		for (int i=0 ; i < this.daddyTable.length ; i++) {
+		for (int i=0; i<this.daddyTable.length; i++) {
 			this.daddyTable[i] = EMPTY;
 			this.movesPerDaddySquare[i] = 0;
 		}
@@ -55,12 +58,49 @@ public class Game {
 		return this.currentPlayer;
 	}
 	
+	public List<Integer> getSuccessors(int lastMove) {
+		List<Integer> successors = new ArrayList<Integer>();
+		
+		if (lastMove == -1) {
+			for (int i=0; i<81; i++) {
+				successors.add(i);
+			}
+			
+			return successors;
+		}
+				
+		int square = lastMove/9;
+		int newSquare = lastMove - square*9;
+		
+		if (this.daddyTable[newSquare] == EMPTY) {
+			
+			int firstBabySquare = newSquare*9;
+			
+			for (int i=firstBabySquare; i<firstBabySquare+9; i++) {
+				if (this.babyTable[i] == EMPTY) {
+					successors.add(i);
+				}
+			}
+		} else {
+			for (int i=0; i<9; i++) {
+				if (this.daddyTable[i] == EMPTY) {
+					int tmp = i*9;
+					for (int j=tmp; j<tmp+9; j++) {
+						successors.add(j);
+					}
+				}
+			}
+		}
+		
+		return successors;
+	}
+	
 	/**
 	 * Play the move for the current player.
 	 * @param move
 	 */
 	public void play(int move) {
-		int square = move / this.daddyTable.length;
+		int square = move/9;
 		
 		this.babyTable[move] = this.currentPlayer;
 		this.movesPerDaddySquare[square]++;
@@ -77,7 +117,7 @@ public class Game {
 	}
 	
 	public void unplay(int move) {
-		int square = move / this.daddyTable.length;
+		int square = move/9;
 		
 		if (this.daddyTable[square] != EMPTY) {
 			this.daddyTable[square] = EMPTY;
@@ -104,7 +144,13 @@ public class Game {
 	 * @return CROSS, CIRCLE, DRAW or 0
 	 */
 	public int isEndOfGame(int move) {
-		int normalizedMove = move/this.daddyTable.length;
+		
+		// The board is empty.
+		if (move != -1) {
+			return 0;
+		}
+		
+		int normalizedMove = move/9;
 		
 		if(this.winHorizontally(this.daddyTable, normalizedMove)
 				|| this.winVertically(this.daddyTable, normalizedMove)
@@ -125,12 +171,12 @@ public class Game {
 	}
 	
 	private boolean winVertically(int[] table, int normalizedMove) {
-		int tmp = normalizedMove%3;
+		int tmp = normalizedMove % 3;
 		return table[tmp] != DRAW && table[tmp] == table[tmp+3] && table[tmp+3] == table[tmp+6];
 	}
 	
 	private boolean winDiagonally(int[] table, int normalizedMove) {
-		if (normalizedMove%2 != 0 || table[4] == DRAW) {
+		if (normalizedMove % 2 != 0 || table[4] == DRAW) {
 			return false;
 		}
 	
@@ -140,7 +186,7 @@ public class Game {
 	private boolean winDaddySquare(int move) {
 		int[] subtable = new int[9];
 		int normalizedMove = move%this.daddyTable.length;
-		int rg = move/9;
+		int rg = move / 9;
 	
 		for (int i=0 ; i<9 ; i++) {
 			subtable[i] = this.babyTable[i+rg];
@@ -166,7 +212,7 @@ public class Game {
 		String[] representation = {" ", "X", "O", "-"};
 	
 		for (int b=0; b<81; b+=27) {
-			for (int i=0; i<9 ; i+=3) {
+			for (int i=0; i<9; i+=3) {
 				for (int j=0; j<27; j+=9) {
 					for (int k=0; k<3; k++) {
 						if (this.daddyTable[(b+i+j+k)/9] != EMPTY) {
