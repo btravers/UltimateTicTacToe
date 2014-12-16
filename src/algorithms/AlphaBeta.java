@@ -4,23 +4,24 @@ import game.Game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class AlphaBeta {
 	
 	private Game game;
-	private List<Integer> playedMoves;
+	private Stack<Integer> playedMoves;
 	
 	public AlphaBeta(Game game) {
 		this.game = game;
-		this.playedMoves = new ArrayList<Integer>();
+		this.playedMoves = new Stack<Integer>();
 	}
 	
 	public int run() {
 		return maxValue(Integer.MIN_VALUE, Integer.MAX_VALUE, this.playedMoves);
 	}
 
-	private int maxValue(int alpha, int beta, List<Integer> playedMoves) {
-		int lastMove = playedMoves.isEmpty() ? -1 : playedMoves.get(playedMoves.size()-1);
+	private int maxValue(int alpha, int beta, Stack<Integer> playedMoves) {
+		int lastMove = playedMoves.isEmpty() ? -1 : playedMoves.peek();
 		
 		if (game.isEndOfGame(lastMove) != 0) {
 			return game.getScore();
@@ -30,13 +31,13 @@ public class AlphaBeta {
 		List<Integer> successors = game.getSuccessors(lastMove);
 		
 		for (Integer move : successors) {
-			List<Integer> tmp = new ArrayList<Integer>();
+			Stack<Integer> tmp = new Stack<Integer>();
 			int vbis = minValue(alpha, beta, tmp);
 			
 			if (vbis > v) {
 				v = vbis;
 				playedMoves = tmp;
-				playedMoves.add(move);
+				playedMoves.push(move);
 			}
 			
 			if (v >= beta) {
@@ -49,8 +50,8 @@ public class AlphaBeta {
 		return v;
 	}
 	
-	private int minValue(int alpha, int beta, List<Integer> playedMoves) {
-		int lastMove = playedMoves.isEmpty() ? -1 : playedMoves.get(playedMoves.size()-1);
+	private int minValue(int alpha, int beta, Stack<Integer> playedMoves) {
+		int lastMove = playedMoves.isEmpty() ? -1 : playedMoves.peek();
 		
 		if (game.isEndOfGame(lastMove) != 0) {
 			return game.getScore();
@@ -60,13 +61,13 @@ public class AlphaBeta {
 		List<Integer> successors = game.getSuccessors(lastMove);
 		
 		for (Integer move : successors) {
-			List<Integer> tmp = new ArrayList<Integer>();
+			Stack<Integer> tmp = new Stack<Integer>();
 			int vbis = maxValue(alpha, beta, tmp);
 			
 			if (vbis < v) {
 				v = vbis;
 				playedMoves = tmp;
-				playedMoves.add(move);
+				playedMoves.push(move);
 			}
 			
 			if (v <= alpha) {
