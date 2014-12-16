@@ -115,6 +115,7 @@ public class Game {
 			this.daddyTable[square] = DRAW;
 		}
 		
+		System.out.println("Play " + move);
 		this.changePlayer();
 	}
 	
@@ -130,6 +131,7 @@ public class Game {
 		this.movesPerDaddySquare[square]--;
 		this.nbFreeSquare++;
 		
+		System.out.println("Unplay " + move);
 		this.changePlayer();
 	}
 	
@@ -169,16 +171,16 @@ public class Game {
 	
 	private boolean winHorizontally(int[] table, int normalizedMove) {
 		int tmp = normalizedMove/3;
-		return table[tmp] != DRAW && table[tmp] == table[tmp+1] && table[tmp+1] == table[tmp+2];
+		return table[tmp] != DRAW && table[tmp] != EMPTY && table[tmp] == table[tmp+1] && table[tmp+1] == table[tmp+2];
 	}
 	
 	private boolean winVertically(int[] table, int normalizedMove) {
 		int tmp = normalizedMove % 3;
-		return table[tmp] != DRAW && table[tmp] == table[tmp+3] && table[tmp+3] == table[tmp+6];
+		return table[tmp] != DRAW && table[tmp] != EMPTY && table[tmp] == table[tmp+3] && table[tmp+3] == table[tmp+6];
 	}
 	
 	private boolean winDiagonally(int[] table, int normalizedMove) {
-		if (normalizedMove % 2 != 0 || table[4] == DRAW) {
+		if (normalizedMove % 2 != 0 || table[4] == DRAW || table[4] == EMPTY) {
 			return false;
 		}
 	
@@ -237,10 +239,5 @@ public class Game {
 		}
 		
 		return display;
-	}
-	
-	public static void main(String[] args) {
-		Game game = new Game();
-		System.out.println(game.toString());
 	}
 }

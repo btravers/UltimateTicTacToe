@@ -9,6 +9,7 @@ public class AlphaBeta {
 	
 	private Game game;
 	private Stack<Integer> playedMoves;
+	private Stack<Integer> bestMoves;
 	
 	public AlphaBeta(Game game) {
 		this.game = game;
@@ -16,11 +17,11 @@ public class AlphaBeta {
 	}
 	
 	public int run() {
-		return maxValue(Integer.MIN_VALUE, Integer.MAX_VALUE, this.playedMoves);
+		return maxValue(Integer.MIN_VALUE, Integer.MAX_VALUE);
 	}
 
-	private int maxValue(int alpha, int beta, Stack<Integer> playedMoves) {
-		int lastMove = playedMoves.isEmpty() ? -1 : playedMoves.peek();
+	private int maxValue(int alpha, int beta) {
+		int lastMove = this.playedMoves.isEmpty() ? -1 : this.playedMoves.peek();
 		
 		int result = game.isEndOfGame(lastMove);
 		if (result != 0) {
@@ -30,14 +31,16 @@ public class AlphaBeta {
 		int v = Integer.MIN_VALUE;
 		List<Integer> successors = game.getSuccessors(lastMove);
 		
-		for (Integer move : successors) {
-			Stack<Integer> tmp = new Stack<Integer>();
-			int vbis = minValue(alpha, beta, tmp);
+		for (Integer move : successors) {			
+			game.play(move);
+			this.playedMoves.add(move);
+			int vbis = minValue(alpha, beta);
+			this.playedMoves.remove(move);
+			game.unplay(move);
 			
 			if (vbis > v) {
 				v = vbis;
-				playedMoves = tmp;
-				playedMoves.push(move);
+				this.bestMoves.push(move);
 			}
 			
 			if (v >= beta) {
@@ -50,8 +53,8 @@ public class AlphaBeta {
 		return v;
 	}
 	
-	private int minValue(int alpha, int beta, Stack<Integer> playedMoves) {
-		int lastMove = playedMoves.isEmpty() ? -1 : playedMoves.peek();
+	private int minValue(int alpha, int beta) {
+		int lastMove = this.playedMoves.isEmpty() ? -1 : this.playedMoves.peek();
 		
 		int result = game.isEndOfGame(lastMove);
 		if (result != 0) {
@@ -61,14 +64,16 @@ public class AlphaBeta {
 		int v = Integer.MAX_VALUE;
 		List<Integer> successors = game.getSuccessors(lastMove);
 		
-		for (Integer move : successors) {
-			Stack<Integer> tmp = new Stack<Integer>();
-			int vbis = maxValue(alpha, beta, tmp);
+		for (Integer move : successors) {			
+			game.play(move);
+			this.playedMoves.add(move);
+			int vbis = maxValue(alpha, beta);
+			this.playedMoves.remove(move);
+			game.unplay(move);
 			
 			if (vbis < v) {
 				v = vbis;
-				playedMoves = tmp;
-				playedMoves.push(move);
+				this.bestMoves.push(move);
 			}
 			
 			if (v <= alpha) {
@@ -81,4 +86,11 @@ public class AlphaBeta {
 		return v;
 	}
 	
+	public static void main(String[] args) {
+		AlphaBeta ab = new AlphaBeta(new Game());
+		
+		System.out.println(ab.run());
+		
+		System.out.println(ab.game.toString());
+	}
 }
