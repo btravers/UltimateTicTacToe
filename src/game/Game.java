@@ -5,18 +5,26 @@ public class Game {
 	/**
 	 * Representation of the small squares.
 	 */
-	
 	private int[] babyTable;
+	
 	/**
 	 * Representation of the big squares.
 	 */
-	
 	private int[] daddyTable;
 	
+	/**
+	 * Number of moves for each daddy square.
+	 */
 	private int[] movesPerDaddySquare;
 	
+	/**
+	 * The current play.
+	 */
 	private int currentPlayer;
 	
+	/**
+	 * Number of free squares on the board.
+	 */
 	private int nbFreeSquare;
 	
 	public static final int EMPTY = 0;
@@ -47,6 +55,10 @@ public class Game {
 		return this.currentPlayer;
 	}
 	
+	/**
+	 * Play the move for the current player.
+	 * @param move
+	 */
 	public void play(int move) {
 		int square = move / this.daddyTable.length;
 		
@@ -79,6 +91,9 @@ public class Game {
 		this.changePlayer();
 	}
 	
+	/**
+	 * Change the current player.
+	 */
 	private void changePlayer() {
 		this.currentPlayer = (this.currentPlayer == CROSS) ? CIRCLE : CROSS;
 	}
