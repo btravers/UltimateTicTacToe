@@ -19,8 +19,6 @@ public class MonteCarlo {
 			this.move = move;
 			this.w = 0;
 			this.n = 0;
-
-			this.game.play(move);
 		}
 	}
 
@@ -57,9 +55,10 @@ public class MonteCarlo {
 				}
 			}
 
-			focus.game.play(focus.move);
-			int winner = focus.game.clone().playOut();
-			focus.game.unplay();
+			Game clone = focus.game.clone();
+			clone.play(focus.move);
+			int winner = clone.playOut();
+			
 			if (winner == this.game.getCurrentPlayer()) {
 				focus.w++;
 			}
