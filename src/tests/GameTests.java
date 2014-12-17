@@ -44,4 +44,12 @@ public class GameTests {
 		game.play(1);
 		assertNotEquals(tmp.toString(), game.toString());
 	}
+	
+	@Test
+	public void testPLayOut() {
+		int res = game.playOut();
+		
+		assertNotEquals(res, 0);
+		assertEquals(res, game.isEndOfGame());
+	}
 }

@@ -38,8 +38,7 @@ public class MonteCarlo {
 
 	public int run() {
 		for (int m : this.game.getSuccessors()) {
-			Game g = this.game.clone();
-			this.successors.add(new Node(g, m));
+			this.successors.add(new Node(this.game, m));
 		}
 
 		Node focus;
@@ -48,17 +47,19 @@ public class MonteCarlo {
 
 		while (System.currentTimeMillis() - firstTime < 2000) {
 			focus = this.successors.get(0);
-			bestScore = focus.n == 0 ? -1 : ((double)focus.w)/((double)focus.n) + Math.sqrt(2)*Math.sqrt(Math.log(this.t)/focus.n);
+			bestScore = focus.n == 0 ? 1 : ((double)focus.w)/((double)focus.n) + Math.sqrt(2)*Math.sqrt(Math.log(this.t)/focus.n);
 
 			for (Node n : this.successors) {
-				double tmp = ((double)n.w)/((double)n.n) + Math.sqrt(2)*Math.sqrt(Math.log(this.t)/n.n);
+				double tmp = n.n == 0 ? 1 : ((double)n.w)/((double)n.n) + Math.sqrt(2)*Math.sqrt(Math.log(this.t)/n.n);
 				if (tmp > bestScore) {
 					focus = n;
 					bestScore = tmp;
 				}
 			}
 
+			focus.game.play(focus.move);
 			int winner = focus.game.clone().playOut();
+			focus.game.unplay();
 			if (winner == this.game.getCurrentPlayer()) {
 				focus.w++;
 			}
