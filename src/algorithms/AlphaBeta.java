@@ -94,7 +94,7 @@ public class AlphaBeta {
 		return v;
 	}
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		AlphaBeta ab = new AlphaBeta(new Game());
 		
 		System.out.println(ab.run());
@@ -107,5 +107,5 @@ public class AlphaBeta {
 		System.out.println(moves);
 		
 		System.out.println(ab.game.toString());
-	}
+	}*/
 }
