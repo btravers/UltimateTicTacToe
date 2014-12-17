@@ -244,7 +244,7 @@ public class Game {
 		
 		while ((res = this.isEndOfGame()) == 0) {
 			List<Integer> successors = this.getSuccessors();
-			this.play(rand.nextInt(successors.size()-1));
+			this.play(successors.get(rand.nextInt(successors.size()-1)));
 		}
 		
 		return res;
