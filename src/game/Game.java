@@ -263,7 +263,7 @@ public class Game {
 		clone.currentPlayer = this.currentPlayer;
 		clone.nbFreeSquare = this.nbFreeSquare;
 		clone.playedMoves = new Stack<Integer>();
-		playedMoves.addAll(this.playedMoves);
+		clone.playedMoves.addAll(this.playedMoves);
 		
 		return clone;
 	}
