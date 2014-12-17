@@ -162,8 +162,8 @@ public class Game {
 	 */
 	public int isEndOfGame() {
 		
-		// The board is empty.
-		if (this.playedMoves.empty()) {
+		// There are not enough moves played to have a winning situation.
+		if (this.playedMoves.size() < 17) {
 			return 0;
 		}
 		
