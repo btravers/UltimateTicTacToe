@@ -31,4 +31,17 @@ public class GameTests {
 		game.unplay();
 		assertEquals(game.getCurrentPlayer(), Game.CROSS);
 	}
+	
+	@Test
+	public void testClone() {
+		game.play(0);
+		
+		Game tmp = game.clone();
+		
+		assertEquals(tmp.getCurrentPlayer(), Game.CIRCLE);
+		assertEquals(tmp.toString(), game.toString());
+		
+		game.play(1);
+		assertNotEquals(tmp.toString(), game.toString());
+	}
 }

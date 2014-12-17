@@ -2,6 +2,7 @@ package game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Stack;
 
 public class Game {
@@ -235,6 +236,32 @@ public class Game {
 		}
 		
 		return score;
+	}
+	
+	public int playOut() {
+		int res;
+		Random rand = new Random();
+		
+		while ((res = this.isEndOfGame()) == 0) {
+			List<Integer> successors = this.getSuccessors();
+			this.play(rand.nextInt(successors.size()-1));
+		}
+		
+		return res;
+	}
+	
+	public Game clone() {
+		Game clone = new Game();
+		
+		clone.babyTable = this.babyTable.clone();
+		clone.daddyTable = this.daddyTable.clone();
+		clone.movesPerDaddySquare = this.movesPerDaddySquare.clone();
+		clone.currentPlayer = this.currentPlayer;
+		clone.nbFreeSquare = this.nbFreeSquare;
+		clone.playedMoves = new Stack<Integer>();
+		playedMoves.addAll(this.playedMoves);
+		
+		return clone;
 	}
 	
 	public String toString() {
