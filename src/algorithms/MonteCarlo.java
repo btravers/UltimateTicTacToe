@@ -97,8 +97,14 @@ public class MonteCarlo {
 				g.play(mc.run());
 				System.out.println(g.toString());
 			} else {
-				System.out.println("Move: ");
-				int move = scan.nextInt();
+				int move;
+				List<Integer> successors = g.getSuccessors();
+				do {
+					System.out.println("Entrez deux entiers entre 1 et 9 (grand carré, petit carré): ");
+					int bigSquare = scan.nextInt()-1;
+					int smallSquare = scan.nextInt()-1;
+					move = bigSquare * 9 + smallSquare;
+				} while (!successors.contains(move));
 				g.play(move);
 				System.out.println(g.toString());
 			}
