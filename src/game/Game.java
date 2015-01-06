@@ -10,46 +10,46 @@ public class Game {
 	/**
 	 * Representation of the small squares.
 	 */
-	private int[] babyTable;
+	private byte[] babyTable;
 	
 	/**
 	 * Representation of the big squares.
 	 */
-	private int[] daddyTable;
+	private byte[] daddyTable;
 	
 	/**
 	 * Number of moves for each daddy square.
 	 */
-	private int[] movesPerDaddySquare;
+	private byte[] movesPerDaddySquare;
 	
 	/**
 	 * The current play.
 	 */
-	private int currentPlayer;
+	private byte currentPlayer;
 	
 	/**
 	 * Number of free squares on the board.
 	 */
-	private int nbFreeSquare;
+	private byte nbFreeSquare;
 	
 	/**
 	 * Stack of played moves.
 	 */
 	private Stack<Integer> playedMoves;
 	
-	public static final int EMPTY = 0;
-	public static final int CROSS = 1;
-	public static final int CIRCLE = 2;
-	public static final int DRAW = 3;
+	public static final byte EMPTY = 0;
+	public static final byte CROSS = 1;
+	public static final byte CIRCLE = 2;
+	public static final byte DRAW = 3;
 	
 	public Game() {
 		this.currentPlayer = CROSS;
 
 		this.nbFreeSquare = 81;
 		
-		this.babyTable = new int[81];
-		this.daddyTable = new int[9];
-		this.movesPerDaddySquare = new int[9];
+		this.babyTable = new byte[81];
+		this.daddyTable = new byte[9];
+		this.movesPerDaddySquare = new byte[9];
 		this.playedMoves = new Stack<Integer>();
 		
 		for (int i=0; i<this.babyTable.length; i++) {
@@ -184,18 +184,18 @@ public class Game {
 		return 0;
 	}
 	
-	private boolean winHorizontally(int[] table, int normalizedMove) {
+	private boolean winHorizontally(byte[] table, int normalizedMove) {
 		int tmp = normalizedMove/3;
 		tmp *= 3;
 		return table[tmp] != DRAW && table[tmp] != EMPTY && table[tmp] == table[tmp+1] && table[tmp+1] == table[tmp+2];
 	}
 	
-	private boolean winVertically(int[] table, int normalizedMove) {
+	private boolean winVertically(byte[] table, int normalizedMove) {
 		int tmp = normalizedMove % 3;
 		return table[tmp] != DRAW && table[tmp] != EMPTY && table[tmp] == table[tmp+3] && table[tmp+3] == table[tmp+6];
 	}
 	
-	private boolean winDiagonally(int[] table, int normalizedMove) {
+	private boolean winDiagonally(byte[] table, int normalizedMove) {
 		// NormalizedMove is even.
 		if (normalizedMove%2 != 0 || table[4] == DRAW || table[4] == EMPTY) {
 			return false;
@@ -205,7 +205,7 @@ public class Game {
 	}
 	
 	private boolean winDaddySquare(int move) {
-		int[] subtable = new int[9];
+		byte[] subtable = new byte[9];
 		int normalizedMove = move%this.daddyTable.length;
 		int rg = move / 9;
 		rg *= 9;
