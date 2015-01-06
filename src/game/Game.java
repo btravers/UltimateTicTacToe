@@ -219,13 +219,15 @@ public class Game {
 				|| this.winDiagonally(subtable, normalizedMove);
 	}
 	
-	public int getScore(int player) {
-		switch(player){
-			case CROSS:
+	public int getScore(int player, int winner) {
+		int adversary = player == CIRCLE ? CROSS : CIRCLE;
+		
+		if (player == winner) {
 				return Integer.MAX_VALUE;
-			case CIRCLE:
+		} else if (adversary == winner) {
 				return Integer.MIN_VALUE;
 		}
+		
 		return 0;	
 	}
 	
@@ -233,29 +235,31 @@ public class Game {
 		
 		int[] babyTableEval = new int[9];
 		
+		int adversary = player == CIRCLE ? CROSS : CIRCLE; 
+		
 		for (int i=0; i<9; i++) {
 			if (this.daddyTable[i] == player) {
 				babyTableEval[i] = 40;
+				break;
+			} else if (this.daddyTable[i] == adversary) {
+				babyTableEval[i] = -40;
 				break;
 			} else if (this.daddyTable[i] == DRAW) {
 				babyTableEval[i] = 0;
 				break;
 			} else if (this.daddyTable[i] == EMPTY) {
-				int nbj = 0;
-				int nba = 0;
+				int nbX = 0;
+				int nbO = 0;
 				int start = i*9;
 				int end = start+9;
 				for (int j=start; j<end; j++) {
 					if (this.babyTable[j] == player) {
-						nbj++;
-					} else if (this.babyTable[j] != EMPTY) {
-						nba++;
+						nbX++;
+					} else if (this.babyTable[j] == adversary) {
+						nbO++;
 					}
 				}
-				babyTableEval[i] = (int) (Math.pow(nbj, 2) - Math.pow(nba, 2));
-			} else {
-				babyTableEval[i] = -40;
-				break;
+				babyTableEval[i] = (int) (Math.pow(nbX, 2) - Math.pow(nbO, 2));
 			}
 		}
 		

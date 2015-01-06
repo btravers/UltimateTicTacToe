@@ -10,32 +10,33 @@ public class AlphaBeta {
 	
 	private Game game;
 	private List<Integer> bestMoves;
-	private int truc;
+	private int player;
 	
-	public AlphaBeta(Game game, int truc) {
+	public AlphaBeta(Game game, int player) {
 		this.game = game;
 		this.bestMoves = new ArrayList<Integer>();
-		this.truc = truc;
+		this.player = player;
 	}
 	
 	public int run() {
 		long firstTime = System.currentTimeMillis();
 		int depth = 1;
-		while (System.currentTimeMillis()-firstTime < 3000) {
-			maxValue(Integer.MIN_VALUE, Integer.MAX_VALUE, this.bestMoves, depth++);
+		int score = 0;
+		while (System.currentTimeMillis()-firstTime < 2000) {
+			score = maxValue(Integer.MIN_VALUE, Integer.MAX_VALUE, this.bestMoves, depth++);
 		}
-		System.out.println(depth);
+		System.out.println(score);
 		return this.bestMoves.get(this.bestMoves.size()-1);
 	}
 
 	private int maxValue(int alpha, int beta, List<Integer> actionList, int depth) {
 		int result = this.game.isEndOfGame();
 		if (result != 0) {
-			return this.game.getScore(result);
+			return this.game.getScore(this.player, result);
 		}
 		
 		if (depth == 0) {
-			return this.game.eval(this.truc);
+			return this.game.eval(this.player);
 		}
 		
 		int v = Integer.MIN_VALUE;
@@ -69,11 +70,11 @@ public class AlphaBeta {
 		
 		int result = game.isEndOfGame();
 		if (result != 0) {
-			return game.getScore(result);
+			return game.getScore(this.player, result);
 		}
 		
 		if (depth == 0) {
-			return this.game.eval(this.truc);
+			return this.game.eval(this.player);
 		}
 		
 		int v = Integer.MAX_VALUE;
@@ -109,18 +110,16 @@ public class AlphaBeta {
 		Scanner scan = new Scanner(System.in);
 
 		Game g = new Game();
-		int computer = Game.CROSS;
-		
-		
+				
 		int tour = 0;
 
 		while (g.isEndOfGame() == 0) {
 			if (tour%2 == 0) {
-				AlphaBeta ab = new AlphaBeta(g, computer);
+				AlphaBeta ab = new AlphaBeta(g, Game.CROSS);
 				g.play(ab.run());
 				System.out.println(g.toString());
 			} else {
-				int move;
+				/*int move;
 				List<Integer> successors = g.getSuccessors();
 				do {
 					System.out.println("Entrez deux entiers entre 1 et 9 (grand carré, petit carré): ");
@@ -129,6 +128,9 @@ public class AlphaBeta {
 					move = bigSquare * 9 + smallSquare;
 				} while (!successors.contains(move));
 				g.play(move);
+				System.out.println(g.toString());*/
+				AlphaBeta ab = new AlphaBeta(g, Game.CIRCLE);
+				g.play(ab.run());
 				System.out.println(g.toString());
 			}
 			tour++;
