@@ -222,20 +222,44 @@ public class Game {
 	public int getScore(int player) {
 		switch(player){
 			case CROSS:
-				return 82 - this.playedMoves.size();
+				return Integer.MAX_VALUE;
 			case CIRCLE:
-				return this.playedMoves.size() - 82;
+				return Integer.MIN_VALUE;
 		}
 		return 0;	
 	}
 	
-	public int eval() {
-		int score = 0;
-		for (int i = 0; i < this.daddyTable.length; i++) {
-			score += this.daddyTable[i] == CROSS ? 1 : this.daddyTable[i] == CIRCLE ? -1 : 0;
+	public int eval(int player) {
+		
+		int[] babyTableEval = new int[9];
+		
+		for (int i=0; i<9; i++) {
+			if (this.daddyTable[i] == player) {
+				babyTableEval[i] = 40;
+				break;
+			} else if (this.daddyTable[i] == DRAW) {
+				babyTableEval[i] = 0;
+				break;
+			} else if (this.daddyTable[i] == EMPTY) {
+				int nbj = 0;
+				int nba = 0;
+				int start = i*9;
+				int end = start+9;
+				for (int j=start; j<end; j++) {
+					if (this.babyTable[j] == player) {
+						nbj++;
+					} else if (this.babyTable[j] != EMPTY) {
+						nba++;
+					}
+				}
+				babyTableEval[i] = (int) (Math.pow(nbj, 2) - Math.pow(nba, 2));
+			} else {
+				babyTableEval[i] = -40;
+				break;
+			}
 		}
 		
-		return score;
+		return 8*babyTableEval[4]+3*(babyTableEval[0]+babyTableEval[2]+babyTableEval[6]+babyTableEval[8])+babyTableEval[1]+babyTableEval[3]+babyTableEval[5]+babyTableEval[7];
 	}
 	
 	public int playOut() {

@@ -82,7 +82,7 @@ public class MonteCarlo {
 		return focus.move;
 	}
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		
 
 		Scanner scan = new Scanner(System.in);
@@ -112,5 +112,5 @@ public class MonteCarlo {
 		}
 		
 		scan.close();
-	}
+	}*/
 }
