@@ -1,7 +1,9 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Stack;
 
@@ -46,6 +48,8 @@ public class Game {
 	 * Zobrist random numbers. Size 2*81.
 	 */
 	private long[][] randomNumbers;
+	private Map<Long, Integer> hitMap;
+	private long hash;
 	
 	public Game() {
 		this.currentPlayer = CROSS;
@@ -67,6 +71,7 @@ public class Game {
 		}
 		
 		this.computeRandoms();
+		this.hitMap = new HashMap<Long, Integer>();
 	}
 	
 	public int getCurrentPlayer() {
@@ -133,6 +138,8 @@ public class Game {
 		}
 		
 		this.playedMoves.push(move);
+		this.hash ^= this.randomNumbers[this.currentPlayer-1][move];
+		this.addHit();
 		
 		this.changePlayer();
 	}
@@ -153,6 +160,7 @@ public class Game {
 		this.nbFreeSquare++;
 		
 		this.changePlayer();
+		this.hash ^= this.randomNumbers[this.currentPlayer-1][lastMove];
 	}
 	
 	/**
@@ -307,6 +315,8 @@ public class Game {
 	private void computeRandoms() {
 		Random rand = new Random();
 		
+		this.hash = rand.nextLong();
+		
 		this.randomNumbers = new long[2][81];
 		for (int player = 0; player < 2; player++) {
 			for (int babySquare = 0; babySquare < 81; babySquare++) {
@@ -316,15 +326,26 @@ public class Game {
 	}
 	
 	public long getHash() {
-		long hash = 0;
+		/*long hash = 0;
 		
 		for (int i = 0; i < babyTable.length; i++) {
 			if (babyTable[i] != EMPTY) {
 				hash = hash ^ randomNumbers[babyTable[i]-1][i];
 			}
+		}*/
+		
+		return this.hash;
+	}
+	
+	private void addHit() {
+		long hash = this.getHash();
+		int hits = 1;
+		
+		if (hitMap.containsKey(hash)) {
+			hits = hitMap.get(hash) + 1;
 		}
 		
-		return hash;
+		// hitMap.put(hash, hits);
 	}
 	
 	public String toString() {
@@ -356,5 +377,8 @@ public class Game {
 		
 		return display;
 	}
-
+	
+	public void displayHitMap() {
+		System.out.println(hitMap);
+	}
 }
