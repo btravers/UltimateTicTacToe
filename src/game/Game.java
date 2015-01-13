@@ -42,6 +42,11 @@ public class Game {
 	public static final byte CIRCLE = 2;
 	public static final byte DRAW = 3;
 	
+	/**
+	 * Zobrist random numbers. Size 2*81.
+	 */
+	private long[][] randomNumbers;
+	
 	public Game() {
 		this.currentPlayer = CROSS;
 
@@ -60,6 +65,8 @@ public class Game {
 			this.daddyTable[i] = EMPTY;
 			this.movesPerDaddySquare[i] = 0;
 		}
+		
+		this.computeRandoms();
 	}
 	
 	public int getCurrentPlayer() {
@@ -292,8 +299,32 @@ public class Game {
 		clone.nbFreeSquare = this.nbFreeSquare;
 		clone.playedMoves = new Stack<Integer>();
 		clone.playedMoves.addAll(this.playedMoves);
+		clone.randomNumbers = this.randomNumbers;
 		
 		return clone;
+	}
+
+	private void computeRandoms() {
+		Random rand = new Random();
+		
+		this.randomNumbers = new long[2][81];
+		for (int player = 0; player < 2; player++) {
+			for (int babySquare = 0; babySquare < 81; babySquare++) {
+				this.randomNumbers[player][babySquare] = rand.nextLong();
+			}
+		}
+	}
+	
+	public long getHash() {
+		long hash = 0;
+		
+		for (int i = 0; i < babyTable.length; i++) {
+			if (babyTable[i] != EMPTY) {
+				hash = hash ^ randomNumbers[babyTable[i]-1][i];
+			}
+		}
+		
+		return hash;
 	}
 	
 	public String toString() {
@@ -325,4 +356,5 @@ public class Game {
 		
 		return display;
 	}
+
 }
