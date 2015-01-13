@@ -12,7 +12,8 @@ public class Main {
 	static int TIMEOUT = 3000;
 
 	public static void main(String[] args) {
-			
+		long startTime = System.currentTimeMillis();
+		
 		Scanner scan = new Scanner(System.in);
 
 		Game g = new Game();
@@ -33,6 +34,10 @@ public class Main {
 		}
 		
 		scan.close();
+		
+		System.out.println("Temps total :" + (System.currentTimeMillis()-startTime)/1000 + "s");
+		
+		g.displayHitMap();
 				
 	}
 
