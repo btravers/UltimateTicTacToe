@@ -19,11 +19,11 @@ public class AlphaBeta {
 		this.player = player;
 	}
 	
-	public int run() {
+	public int run(int timeout) {
 		long firstTime = System.currentTimeMillis();
 		int depth = 1;
 		int score = 0;
-		while (System.currentTimeMillis()-firstTime < 3000) {
+		while (System.currentTimeMillis()-firstTime < timeout) {
 			score = maxValue(Integer.MIN_VALUE, Integer.MAX_VALUE, this.bestMoves, depth++);
 		}
 		System.out.println("Temps d'exécution de AlphaBeta : " + (System.currentTimeMillis() - firstTime));

@@ -8,6 +8,8 @@ import algorithms.AlphaBeta;
 import algorithms.MonteCarloTreeSearch;
 
 public class Main {
+	
+	static int TIMEOUT = 1000;
 
 	public static void main(String[] args) {
 			
@@ -20,11 +22,11 @@ public class Main {
 		while (g.isEndOfGame() == 0) {
 			if (tour%2 == 0) {
 				AlphaBeta ab = new AlphaBeta(g, Game.CROSS);
-				g.play(ab.run());
+				g.play(ab.run(TIMEOUT));
 				System.out.println(g.toString());
 			} else {
-				MonteCarloTreeSearch ab = new MonteCarloTreeSearch(g);
-				g.play(ab.run());
+				MonteCarloTreeSearch mc = new MonteCarloTreeSearch(g);
+				g.play(mc.run(TIMEOUT));
 				System.out.println(g.toString());
 			}
 			tour++;
