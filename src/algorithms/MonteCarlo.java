@@ -2,7 +2,6 @@ package algorithms;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import game.Game;
 
@@ -45,10 +44,10 @@ public class MonteCarlo {
 
 		while (System.currentTimeMillis() - firstTime < 2000) {
 			focus = this.successors.get(0);
-			bestScore = focus.n == 0 ? 1 : ((double)focus.w)/((double)focus.n) + Math.sqrt(2)*Math.sqrt(Math.log(this.t)/focus.n);
+			bestScore = focus.n == 0 ? Integer.MAX_VALUE : ((double)focus.w)/((double)focus.n) + Math.sqrt(2)*Math.sqrt(Math.log(this.t)/focus.n);
 
 			for (Node n : this.successors) {
-				double tmp = n.n == 0 ? 1 : ((double)n.w)/((double)n.n) + Math.sqrt(2)*Math.sqrt(Math.log(this.t)/n.n);
+				double tmp = n.n == 0 ? Integer.MAX_VALUE : ((double)n.w)/((double)n.n) + Math.sqrt(2)*Math.sqrt(Math.log(this.t)/n.n);
 				if (tmp > bestScore) {
 					focus = n;
 					bestScore = tmp;
@@ -100,7 +99,7 @@ public class MonteCarlo {
 				int move;
 				List<Integer> successors = g.getSuccessors();
 				do {
-					System.out.println("Entrez deux entiers entre 1 et 9 (grand carré, petit carré): ");
+					System.out.println("Entrez deux entiers entre 1 et 9 (grand carrï¿½, petit carrï¿½): ");
 					int bigSquare = scan.nextInt()-1;
 					int smallSquare = scan.nextInt()-1;
 					move = bigSquare * 9 + smallSquare;
