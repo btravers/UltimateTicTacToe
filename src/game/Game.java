@@ -47,9 +47,9 @@ public class Game {
 	/**
 	 * Zobrist random numbers. Size 2*81.
 	 */
-	private long[][] randomNumbers;
+	private long[][] randomBabyNumbers;
+	private long[][] randomDaddyNumbers;
 	private Map<Long, Integer> hitMap;
-	private long hash;
 	
 	public Game() {
 		this.currentPlayer = CROSS;
@@ -138,7 +138,6 @@ public class Game {
 		}
 		
 		this.playedMoves.push(move);
-		this.hash ^= this.randomNumbers[this.currentPlayer-1][move];
 		this.addHit();
 		
 		this.changePlayer();
@@ -160,7 +159,6 @@ public class Game {
 		this.nbFreeSquare++;
 		
 		this.changePlayer();
-		this.hash ^= this.randomNumbers[this.currentPlayer-1][lastMove];
 	}
 	
 	/**
@@ -307,7 +305,7 @@ public class Game {
 		clone.nbFreeSquare = this.nbFreeSquare;
 		clone.playedMoves = new Stack<Integer>();
 		clone.playedMoves.addAll(this.playedMoves);
-		clone.randomNumbers = this.randomNumbers;
+		clone.randomBabyNumbers = this.randomBabyNumbers;
 		
 		return clone;
 	}
@@ -315,26 +313,36 @@ public class Game {
 	private void computeRandoms() {
 		Random rand = new Random();
 		
-		this.hash = rand.nextLong();
-		
-		this.randomNumbers = new long[2][81];
+		this.randomBabyNumbers = new long[2][81];
+		this.randomDaddyNumbers = new long[3][9];
 		for (int player = 0; player < 2; player++) {
 			for (int babySquare = 0; babySquare < 81; babySquare++) {
-				this.randomNumbers[player][babySquare] = rand.nextLong();
+				this.randomBabyNumbers[player][babySquare] = rand.nextLong();
+			}
+		}
+		
+		for (int player = 0; player < 3; player++) {
+			for (int daddySquare = 0; daddySquare < 9; daddySquare++) {
+				this.randomDaddyNumbers[player][daddySquare] = rand.nextLong();
 			}
 		}
 	}
 	
 	public long getHash() {
-		/*long hash = 0;
+		long hash = 0;
 		
 		for (int i = 0; i < babyTable.length; i++) {
-			if (babyTable[i] != EMPTY) {
-				hash = hash ^ randomNumbers[babyTable[i]-1][i];
+			int daddySquare = i/9;
+			if (daddyTable[daddySquare] != EMPTY) {
+				hash ^= randomDaddyNumbers[daddyTable[daddySquare]-1][daddySquare];
+				i += 9;
+			}			
+			else if (babyTable[i] != EMPTY) {
+				hash = hash ^ randomBabyNumbers[babyTable[i]-1][i];
 			}
-		}*/
+		}
 		
-		return this.hash;
+		return hash;
 	}
 	
 	private void addHit() {
@@ -345,7 +353,7 @@ public class Game {
 			hits = hitMap.get(hash) + 1;
 		}
 		
-		// hitMap.put(hash, hits);
+		//hitMap.put(hash, hits);
 	}
 	
 	public String toString() {

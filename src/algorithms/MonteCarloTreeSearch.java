@@ -101,10 +101,10 @@ public class MonteCarloTreeSearch {
 		}
 	}
 	
-	public int run() {
+	public int run(int timeout) {
 		long firstTime = System.currentTimeMillis();
 		
-		while (System.currentTimeMillis() - firstTime < 3000) {
+		while (System.currentTimeMillis() - firstTime < timeout) {
 			
 			Game clone = this.game.clone();
 			this.visitNode(this.tree, clone);
