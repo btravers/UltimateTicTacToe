@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Stack;
 
@@ -387,6 +388,12 @@ public class Game {
 	}
 	
 	public void displayHitMap() {
-		System.out.println(hitMap);
+		for(Entry<Long, Integer> entry : hitMap.entrySet()) {
+		    Long hash = entry.getKey();
+		    Integer nbHits = entry.getValue();
+		    
+		    if (nbHits > 100000)
+		    	System.out.println("Hash : " + hash + " ; Nb d'occurences : " + nbHits);
+		}
 	}
 }
