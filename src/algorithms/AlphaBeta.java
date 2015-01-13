@@ -119,7 +119,7 @@ public class AlphaBeta {
 				g.play(ab.run());
 				System.out.println(g.toString());
 			} else {
-				/*int move;
+				int move;
 				List<Integer> successors = g.getSuccessors();
 				do {
 					System.out.println("Entrez deux entiers entre 1 et 9 (grand carré, petit carré): ");
@@ -128,15 +128,17 @@ public class AlphaBeta {
 					move = bigSquare * 9 + smallSquare;
 				} while (!successors.contains(move));
 				g.play(move);
-				System.out.println(g.toString());*/
-				AlphaBeta ab = new AlphaBeta(g, Game.CIRCLE);
-				g.play(ab.run());
 				System.out.println(g.toString());
+				/*AlphaBeta ab = new AlphaBeta(g, Game.CIRCLE);
+				g.play(ab.run());
+				System.out.println(g.toString());*/
 			}
 			tour++;
 		}
 		
 		scan.close();
+		
+		g.displayHitMap();
 				
 	}
 }
