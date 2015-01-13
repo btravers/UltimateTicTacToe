@@ -27,11 +27,11 @@ public class MonteCarloTreeSearch {
 	
 	private Game game;
 	private Node tree;
-	private int t;
 	
 	public MonteCarloTreeSearch(Game g) {
+		System.out.println("MonteCarloTreeSearch");
+		
 		this.game = g;
-		this.t = 0;
 		
 		int p = this.game.getCurrentPlayer() == Game.CROSS ? Game.CIRCLE : Game.CROSS;
 		
@@ -49,7 +49,7 @@ public class MonteCarloTreeSearch {
 	
 	public void visitNode(Node n, Game g) {
 		if (n.children.isEmpty()) {
-			if (n.n == 10) {
+			if (n.n == 2) {
 				this.expandNode(n, g);
 			} else {
 				int winner = g.playOut();
@@ -68,15 +68,16 @@ public class MonteCarloTreeSearch {
 					tmp.n++;
 					tmp = tmp.parent;
 				}
-				this.t++;
+				this.tree.w += factor;
+				this.tree.n++;
 			}
 		} else {
-			double bestScore = n.children.get(0).n == 0 ? Integer.MAX_VALUE : ((double)n.children.get(0).w)/((double)n.children.get(0).n) + Math.sqrt(2)*Math.sqrt(Math.log(this.t)/n.children.get(0).n);
+			double bestScore = n.children.get(0).n == 0 ? Integer.MAX_VALUE : ((double)n.children.get(0).w)/((double)n.children.get(0).n) + Math.sqrt(2)*Math.sqrt(Math.log(n.n)/n.children.get(0).n);
 			List<Node> successors = new ArrayList<Node>();
 			successors.add(n.children.get(0));
 			
 			for (Node c : n.children) {
-				double tmp = c.n == 0 ? Integer.MAX_VALUE : ((double)c.w)/((double)c.n) + Math.sqrt(2)*Math.sqrt(Math.log(this.t)/c.n);
+				double tmp = c.n == 0 ? Integer.MAX_VALUE : ((double)c.w)/((double)c.n) + Math.sqrt(2)*Math.sqrt(Math.log(n.n)/c.n);
 				if (tmp == bestScore) {
 					successors.add(c);
 				}
@@ -89,7 +90,7 @@ public class MonteCarloTreeSearch {
 			
 			Node successor;
 			if (successors.size() == 1) {
-				successor = successors.get(1);
+				successor = successors.get(0);
 			} else {
 				int rg = (int)(Math.random()*successors.size());
 				successor = successors.get(rg);
@@ -109,12 +110,14 @@ public class MonteCarloTreeSearch {
 			this.visitNode(this.tree, clone);
 		
 		}
-		double bestScore = this.tree.children.get(0).n == 0 ? Integer.MAX_VALUE : ((double)this.tree.children.get(0).w)/((double)this.tree.children.get(0).n) + Math.sqrt(2)*Math.sqrt(Math.log(this.t)/this.tree.children.get(0).n);
+		
+		System.out.println("Temps d'exécution de MonteCarloTreeSearch : " + (System.currentTimeMillis() - firstTime));
+		double bestScore = this.tree.children.get(0).n == 0 ? Integer.MAX_VALUE : ((double)this.tree.children.get(0).w)/((double)this.tree.children.get(0).n) + Math.sqrt(2)*Math.sqrt(Math.log(this.tree.n)/this.tree.children.get(0).n);
 		List<Node> successors = new ArrayList<Node>();
 		successors.add(this.tree.children.get(0));
 		
 		for (Node c : this.tree.children) {
-			double tmp = c.n == 0 ? Integer.MAX_VALUE : ((double)c.w)/((double)c.n) + Math.sqrt(2)*Math.sqrt(Math.log(this.t)/c.n);
+			double tmp = c.n == 0 ? Integer.MAX_VALUE : ((double)c.w)/((double)c.n) + Math.sqrt(2)*Math.sqrt(Math.log(this.tree.n)/c.n);
 			if (tmp == bestScore) {
 				successors.add(c);
 			}
@@ -127,11 +130,13 @@ public class MonteCarloTreeSearch {
 		
 		Node successor;
 		if (successors.size() == 1) {
-			successor = successors.get(1);
+			successor = successors.get(0);
 		} else {
 			int rg = (int)(Math.random()*successors.size());
 			successor = successors.get(rg);
 		}
+		
+		System.out.println("Nombre de playout exécuté : " + this.tree.n);
 
 		return successor.move;
 	}

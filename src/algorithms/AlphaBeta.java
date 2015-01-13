@@ -4,7 +4,6 @@ import game.Game;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class AlphaBeta {
 	
@@ -13,6 +12,8 @@ public class AlphaBeta {
 	private int player;
 	
 	public AlphaBeta(Game game, int player) {
+		System.out.println("AlphaBeta");
+		
 		this.game = game;
 		this.bestMoves = new ArrayList<Integer>();
 		this.player = player;
@@ -22,10 +23,12 @@ public class AlphaBeta {
 		long firstTime = System.currentTimeMillis();
 		int depth = 1;
 		int score = 0;
-		while (System.currentTimeMillis()-firstTime < 2000) {
+		while (System.currentTimeMillis()-firstTime < 3000) {
 			score = maxValue(Integer.MIN_VALUE, Integer.MAX_VALUE, this.bestMoves, depth++);
 		}
-		System.out.println(score);
+		System.out.println("Temps d'exÃ©cution de AlphaBeta : " + (System.currentTimeMillis() - firstTime));
+		System.out.println("Profondeur : " + depth);
+		System.out.println("Score estimÃ© : " + score);
 		return this.bestMoves.get(this.bestMoves.size()-1);
 	}
 
@@ -102,41 +105,5 @@ public class AlphaBeta {
 		}
 		
 		return v;
-	}
-	
-	public static void main(String[] args) {
-		
-		
-		Scanner scan = new Scanner(System.in);
-
-		Game g = new Game();
-				
-		int tour = 0;
-
-		while (g.isEndOfGame() == 0) {
-			if (tour%2 == 0) {
-				AlphaBeta ab = new AlphaBeta(g, Game.CROSS);
-				g.play(ab.run());
-				System.out.println(g.toString());
-			} else {
-				/*int move;
-				List<Integer> successors = g.getSuccessors();
-				do {
-					System.out.println("Entrez deux entiers entre 1 et 9 (grand carré, petit carré): ");
-					int bigSquare = scan.nextInt()-1;
-					int smallSquare = scan.nextInt()-1;
-					move = bigSquare * 9 + smallSquare;
-				} while (!successors.contains(move));
-				g.play(move);
-				System.out.println(g.toString());*/
-				AlphaBeta ab = new AlphaBeta(g, Game.CIRCLE);
-				g.play(ab.run());
-				System.out.println(g.toString());
-			}
-			tour++;
-		}
-		
-		scan.close();
-				
 	}
 }
