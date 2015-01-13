@@ -51,7 +51,8 @@ public class MonteCarloTreeSearch {
 		if (n.children.isEmpty()) {
 			if (n.n == 2) {
 				this.expandNode(n, g);
-			} else if ((n.n == 2 && n.children.isEmpty()) || n.n > 2) {
+			} 
+			if ((n.n == 2 && n.children.isEmpty()) || n.n > 2) {
 				int score = g.getScore(n.player, n.player);
 				
 				int factor = -1;

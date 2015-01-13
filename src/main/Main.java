@@ -9,7 +9,7 @@ import algorithms.MonteCarloTreeSearch;
 
 public class Main {
 	
-	static int TIMEOUT = 1000;
+	static int TIMEOUT = 3000;
 
 	public static void main(String[] args) {
 			
