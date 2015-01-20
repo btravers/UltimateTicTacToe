@@ -22,7 +22,7 @@ public class Main {
 
 		while (g.isEndOfGame() == 0) {
 			if (tour%2 == 0) {
-				AlphaBeta ab = new AlphaBeta(g, Game.CROSS);
+				AlphaBeta ab = new AlphaBeta(g);
 				g.play(ab.run(TIMEOUT));
 				System.out.println(g.toString());
 			} else {

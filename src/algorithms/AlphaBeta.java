@@ -11,12 +11,12 @@ public class AlphaBeta {
 	private List<Integer> bestMoves;
 	private int player;
 	
-	public AlphaBeta(Game game, int player) {
+	public AlphaBeta(Game game) {
 		System.out.println("AlphaBeta");
 		
 		this.game = game;
 		this.bestMoves = new ArrayList<Integer>();
-		this.player = player;
+		this.player = this.game.getCurrentPlayer();
 	}
 	
 	public int run(int timeout) {
@@ -39,7 +39,7 @@ public class AlphaBeta {
 		}
 		
 		if (depth == 0) {
-			return this.game.eval(this.player);
+			return this.game.new_eval(this.player);
 		}
 		
 		int v = Integer.MIN_VALUE;
@@ -77,7 +77,7 @@ public class AlphaBeta {
 		}
 		
 		if (depth == 0) {
-			return this.game.eval(this.player);
+			return this.game.new_eval(this.player);
 		}
 		
 		int v = Integer.MAX_VALUE;
