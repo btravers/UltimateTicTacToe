@@ -111,14 +111,7 @@ public class MonteCarloTreeSearch {
         }
       }
       
-      Node successor;
-      if (successors.size() == 1) {
-        successor = successors.get(0);
-      } 
-      else {
-        int rg = (int)(Math.random()*successors.size());
-        successor = successors.get(rg);
-      }
+      Node successor = this.pickSuccessor(successors);
       
       g.play(successor.move);
       this.visitNode(successor, g);
@@ -152,17 +145,23 @@ public class MonteCarloTreeSearch {
       }
     }
     
-    Node successor;
-    if (successors.size() == 1) {
-      successor = successors.get(0);
-    } else {
-      int rg = (int)(Math.random()*successors.size());
-      successor = successors.get(rg);
-    }
+    Node successor = this.pickSuccessor(successors);
     
     System.out.println("Nombre de playout exécuté : " + this.tree.n);
 
     return successor.move;
+  }
+  
+  private Node pickSuccessor(List<Node> successors) {
+	  Node successor;
+	    if (successors.size() == 1) {
+	      successor = successors.get(0);
+	    } else {
+	      int rg = (int)(Math.random()*successors.size());
+	      successor = successors.get(rg);
+	    }
+	    
+	    return successor;
   }
   
 }
