@@ -5,7 +5,7 @@ import java.util.List;
 
 import game.Game;
 
-public class MonteCarloTreeSearch {
+public class MonteCarloTreeSearch extends Algorithm{
 	
 	class Node {
 		Node parent;
@@ -25,7 +25,6 @@ public class MonteCarloTreeSearch {
 		}
 	}
 	
-	private Game game;
 	private Node tree;
 	
 	public MonteCarloTreeSearch(Game g) {
