@@ -2,10 +2,14 @@ package gui;
 
 import game.Game;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 
 public class MenuController {
 	
 	private MainApp mainApp;
+	
+	@FXML
+	private CheckBox first;
 		
 	public MenuController() {
 		
@@ -16,31 +20,17 @@ public class MenuController {
 		
 	}
 	
-	public void createPlayerVSComputerAlphaBeta() {
+	public void createAlphaBeta() {
 		this.mainApp.game = new Game();
 		this.mainApp.algrithm = Algorithm.ALPHA_BETA;
-		this.mainApp.player = 0;
+		this.mainApp.player = this.first.isSelected() ? 0 : 1;
 		this.mainApp.showGame();
 	}
 	
-	public void createComputerVSPlayerAlphaBeta() {
-		this.mainApp.game = new Game();
-		this.mainApp.algrithm = Algorithm.ALPHA_BETA;
-		this.mainApp.player = 1;
-		this.mainApp.showGame();
-	}
-	
-	public void createPlayerVSComputerMonteCarlo() {
+	public void createMonteCarloTreeSearch() {
 		this.mainApp.game = new Game();
 		this.mainApp.algrithm = Algorithm.MONTE_CARLO_TREE_SEARCH;
-		this.mainApp.player = 0;
-		this.mainApp.showGame();
-	}
-	
-	public void createComputerVSPlayerMonteCarlo() {
-		this.mainApp.game = new Game();
-		this.mainApp.algrithm = Algorithm.MONTE_CARLO_TREE_SEARCH;
-		this.mainApp.player = 1;
+		this.mainApp.player = this.first.isSelected() ? 0 : 1;
 		this.mainApp.showGame();
 	}
 	
