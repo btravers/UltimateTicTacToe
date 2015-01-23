@@ -5,9 +5,8 @@ import game.Game;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AlphaBeta {
+public class AlphaBeta extends Algorithm {
 	
-	private Game game;
 	private List<Integer> bestMoves;
 	private int player;
 	

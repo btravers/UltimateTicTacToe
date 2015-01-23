@@ -5,7 +5,7 @@ import java.util.List;
 
 import game.Game;
 
-public class MonteCarloTreeSearch {
+public class MonteCarloTreeSearch extends Algorithm {
   
   class Node {
     Node parent;
@@ -29,7 +29,6 @@ public class MonteCarloTreeSearch {
     }
   }
   
-  private Game game;
   private Node tree;
   
   private static final int EXPLORATION_RATIO = 2;
@@ -147,7 +146,7 @@ public class MonteCarloTreeSearch {
     
     Node successor = this.pickSuccessor(successors);
     
-    System.out.println("Nombre de playout exécuté : " + this.tree.n);
+    System.out.println("Nombre de playout execute : " + this.tree.n);
 
     return successor.move;
   }
