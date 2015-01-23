@@ -17,9 +17,9 @@ public class MainApp extends Application {
 	private Stage primaryStage;
     private BorderPane rootLayout;
     
-    static final int TIMEOUT = 3000;
+    static final int TIMEOUT = 100;
     Game game;
-    Algorithm algrithm;
+    Algorithm algorithm;
     int player;
     int tour = 0;
     boolean isFinished;
@@ -69,7 +69,7 @@ public class MainApp extends Application {
             rootLayout.setCenter(menu);
             
             this.game = null;
-            this.algrithm = null;
+            this.algorithm = null;
             this.player = -1;
             this.tour = 0;
             this.isFinished = false;
@@ -81,6 +81,8 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
+    
+    private GameController c;
     
     public void showGame() {
     	try {
@@ -94,11 +96,16 @@ public class MainApp extends Application {
             
             GameController controller = loader.getController();
             controller.setMainApp(this);
+            c = controller;
             
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    
+    /*public void autorun() {
+        c.autorun();    	
+    }*/
     
     /**
      * Returns the main stage.

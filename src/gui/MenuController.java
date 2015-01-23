@@ -22,16 +22,17 @@ public class MenuController {
 	
 	public void createAlphaBeta() {
 		this.mainApp.game = new Game();
-		this.mainApp.algrithm = Algorithm.ALPHA_BETA;
+		this.mainApp.algorithm = Algorithm.ALPHA_BETA;
 		this.mainApp.player = this.first.isSelected() ? 0 : 1;
 		this.mainApp.showGame();
 	}
 	
 	public void createMonteCarloTreeSearch() {
 		this.mainApp.game = new Game();
-		this.mainApp.algrithm = Algorithm.MONTE_CARLO_TREE_SEARCH;
+		this.mainApp.algorithm = Algorithm.MONTE_CARLO_TREE_SEARCH;
 		this.mainApp.player = this.first.isSelected() ? 0 : 1;
 		this.mainApp.showGame();
+		//this.mainApp.autorun();
 	}
 	
 	public void setMainApp(MainApp mainApp) {
