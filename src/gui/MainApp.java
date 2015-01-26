@@ -20,7 +20,7 @@ public class MainApp extends Application {
     private BorderPane rootLayout;
     private GameController gameController;
     
-    static final int TIMEOUT = 100;
+    static final int TIMEOUT = 3000;
     Game game;
     Algorithm algorithm;
     int player;
@@ -63,7 +63,6 @@ public class MainApp extends Application {
      */
     public void showMenu() {
         try {
-            // Load person overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("Menu.fxml"));
             AnchorPane menu = (AnchorPane) loader.load();
@@ -78,12 +77,6 @@ public class MainApp extends Application {
             stage.show();
             //rootLayout.setCenter(menu);
             
-            this.game = null;
-            this.algorithm = null;
-            this.player = -1;
-            this.turn = 0;
-            this.isFinished = false;
-            
             MenuController controller = loader.getController();
             controller.setMainApp(this);
             
@@ -94,7 +87,6 @@ public class MainApp extends Application {
     
     public void showGame() {
     	try {
-            // Load person overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("Game.fxml"));
             AnchorPane game = (AnchorPane) loader.load();
@@ -103,6 +95,9 @@ public class MainApp extends Application {
             controller.setMainApp(this);
             this.gameController = controller;
 
+            this.turn = 0;
+            this.isFinished = false;
+            
             // Set the game into the center of root layout.
             primaryStage.setScene(new Scene(game));
             primaryStage.show();
