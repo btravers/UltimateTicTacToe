@@ -2,165 +2,141 @@ package algorithms;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import game.Game;
 
 public class MonteCarloTreeSearch extends Algorithm {
-  
-  class Node {
-    Node parent;
-    List<Node> children;
-    int move;
-    int player;
-    int w;
-    int n;
 
-    public Node(Node parent, int m, int player) {
-      this.parent = parent;
-      this.children = new ArrayList<Node>();
-      this.move = m;
-      this.player = player;
-      this.w = 0;
-      this.n = 0;
-    }
-    
-    public boolean isRoot() {
-      return this.move == -1;
-    }
-  }
-  
-  private Node tree;
-  
-  private static final int EXPLORATION_RATIO = 2;
-  
-  public MonteCarloTreeSearch(Game g) {
-    System.out.println("MonteCarloTreeSearch");
-    
-    this.game = g;
-    
-    int p = this.game.getCurrentPlayer();
-    
-    this.tree = new Node(null, -1, p);
-    this.expandNode(this.tree, this.game);
-  }
-  
-  public void expandNode(Node n, Game g) {    
-    int p = n.player == Game.CROSS ? Game.CIRCLE : Game.CROSS;
-    
-    for (int s : g.getSuccessors()) {
-      n.children.add(new Node(n, s, p));
-    }
-  }
-  
-  private void updateTree(Node n, int factor) {
-    Node tmp = n;
-    while (!tmp.isRoot()) {
-      tmp.w += factor;
-      factor *= -1;
-      tmp.n++;
-      tmp = tmp.parent;
-    }
-    this.tree.w += factor;
-    this.tree.n++;
-  }
-  
-  public void visitNode(Node n, Game g) {
-    
-    
-    if (n.children.isEmpty()) {
-      if (n.n == EXPLORATION_RATIO) {
-        this.expandNode(n, g);
-      }
-      
-      if (n.n >= EXPLORATION_RATIO && n.children.isEmpty()) {
-        int winner = n.player == Game.CROSS ? Game.CIRCLE : Game.CROSS;
-        int score = g.getScore(this.tree.player, winner);
-        
-        int factor = (int) Math.signum(score);
-        
-        this.updateTree(n, factor);
-      } 
-      
-      if (n.n < EXPLORATION_RATIO) {
-        int winner = g.playOut();
-        int factor = -1;
-        if (winner == this.tree.player) {
-          factor = 1;
-        }
-        if (winner == Game.DRAW) {
-          factor = 0;
-        }
-        
-        this.updateTree(n, factor);
-      }
-    } else {
-      double bestScore = Double.NEGATIVE_INFINITY; //n.children.get(0).n == 0 ? Integer.MAX_VALUE : ((double)n.children.get(0).w)/((double)n.children.get(0).n) + Math.sqrt(2)*Math.sqrt(Math.log(n.n)/n.children.get(0).n);
-      List<Node> successors = new ArrayList<Node>();
-      // successors.add(n.children.get(0));
-      
-      for (Node c : n.children) {
-        double tmp = c.n == 0 ? Double.MAX_VALUE : ((double)c.w)/((double)c.n) + Math.sqrt(EXPLORATION_RATIO)*Math.sqrt(Math.log(n.n)/c.n);
-        if (tmp > bestScore) {
-          successors.clear();
-          successors.add(c);
-          bestScore = tmp;
-        }
-        else if (tmp == bestScore) {
-          successors.add(c);
-        }
-      }
-      
-      Node successor = this.pickSuccessor(successors);
-      
-      g.play(successor.move);
-      this.visitNode(successor, g);
-    }
-  }
-  
-  public int run(int timeout) {
-    long firstTime = System.currentTimeMillis();
-    
-    while (System.currentTimeMillis() - firstTime < timeout) {
-      
-      Game clone = this.game.clone();
-      this.visitNode(this.tree, clone);
-    
-    }
-    
-    System.out.println("Temps d'exécution de MonteCarloTreeSearch : " + (System.currentTimeMillis() - firstTime));
-    double bestScore = Double.NEGATIVE_INFINITY; // ((double)this.tree.children.get(0).w)/((double)this.tree.children.get(0).n) + Math.sqrt(2)*Math.sqrt(Math.log(this.tree.n)/this.tree.children.get(0).n);
-    List<Node> successors = new ArrayList<Node>();
-    // successors.add(this.tree.children.get(0));
-    
-    for (Node c : this.tree.children) {
-      double tmp = ((double)c.w)/((double)c.n) + Math.sqrt(EXPLORATION_RATIO)*Math.sqrt(Math.log(this.tree.n)/c.n);
-      if (tmp > bestScore) {
-        successors.clear();
-        successors.add(c);
-        bestScore = tmp;
-      }
-      else if (tmp == bestScore) {
-        successors.add(c);
-      }
-    }
-    
-    Node successor = this.pickSuccessor(successors);
-    
-    System.out.println("Nombre de playout execute : " + this.tree.n);
+	class Node {
+		Node parent;
+		List<Node> children;
+		int move;
+		int player;
+		int s;
+		int n;
+		int depth;
 
-    return successor.move;
-  }
-  
-  private Node pickSuccessor(List<Node> successors) {
-	  Node successor;
-	    if (successors.size() == 1) {
-	      successor = successors.get(0);
-	    } else {
-	      int rg = (int)(Math.random()*successors.size());
-	      successor = successors.get(rg);
-	    }
-	    
-	    return successor;
-  }
-  
+		public Node(Node parent, int m, int player, int depth) {
+			this.parent = parent;
+			this.children = new ArrayList<Node>();
+			this.move = m;
+			this.player = player;
+			this.depth = depth;
+			this.s = 0;
+			this.n = 0;
+		}
+
+		public boolean isRoot() {
+			return this.move == -1;
+		}
+
+		public boolean isLeaf() {
+			return this.children.isEmpty();
+		}
+
+		public void expand(Game g) {    
+			int p = this.player == Game.CROSS ? Game.CIRCLE : Game.CROSS;
+
+			for (int s : g.getSuccessors()) {
+				this.children.add(new Node(this, s, p, this.depth+1));
+			}
+		}
+
+		public void visit(Game g) {
+			if (this.isLeaf()) {
+				if (this.n == EXPLORATION_RATIO) {
+					this.expand(g);
+				}
+
+				if (this.n >= EXPLORATION_RATIO && this.isLeaf()) {
+					int factor = g.isEndOfGame() == Game.DRAW ? 0 : -1;
+					this.update(factor);
+				} 
+
+				if (this.n < EXPLORATION_RATIO) {
+					int result = g.playOut();
+					int factor = -1;
+					if (result == this.player) {
+						factor = 1;
+					}
+					if (result == Game.DRAW) {
+						factor = 0;
+					}
+
+					this.update(factor);
+				}
+			} else {
+				Node successor = this.select();
+
+				g.play(successor.move);
+				successor.visit(g);
+			}
+		}
+
+		private Node select() {
+			double bestScore = Double.NEGATIVE_INFINITY;
+			List<Node> successors = new ArrayList<Node>();
+
+			for (Node c : this.children) {
+				double tmp = c.n == 0 ? Double.MAX_VALUE : ((double)c.s)/((double)c.n) + Math.sqrt(EXPLORATION_RATIO)*Math.sqrt(Math.log(this.n)/c.n);
+				if (tmp > bestScore) {
+					successors.clear();
+					successors.add(c);
+					bestScore = tmp;
+				} else if (tmp == bestScore) {
+					successors.add(c);
+				}
+			}
+
+			return this.pickSuccessor(successors);
+		}
+
+		private Node pickSuccessor(List<Node> successors) {
+			int rg = r.nextInt(successors.size()); 
+			return successors.get(rg);
+		}
+
+		private void update(int factor) {
+			this.s += factor;
+			this.n++;
+			if (!this.isRoot()) {
+				this.parent.update(-factor);
+			}
+		}
+	}
+
+	private Node tree;
+
+	private static final int EXPLORATION_RATIO = 2;
+	private static Random r = new Random();
+
+	public MonteCarloTreeSearch(Game g) {
+		System.out.println("MonteCarloTreeSearch");
+
+		this.game = g;
+
+		int p = this.game.getCurrentPlayer();
+
+		this.tree = new Node(null, -1, p, 0);
+	}
+
+	public int run(int timeout) {
+		long firstTime = System.currentTimeMillis();
+
+		while (System.currentTimeMillis() - firstTime < timeout) {
+
+			Game clone = this.game.clone();
+			this.tree.visit(clone);
+
+		}
+
+		System.out.println("Temps d'exécution de MonteCarloTreeSearch : " + (System.currentTimeMillis() - firstTime));
+
+		Node successor = this.tree.select();
+
+		System.out.println("Nombre de playout execute : " + this.tree.n);
+
+		return successor.move;
+	}
 }
