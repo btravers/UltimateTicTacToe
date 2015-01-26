@@ -113,10 +113,6 @@ public class MainApp extends Application {
         }
     }
     
-    public void autorun() {
-        gameController.autorun();    	
-    }
-    
     public void playTurn() {
     	if (this.turn%2 != this.player) {
     		this.gameController.callAlgorithm();
@@ -132,7 +128,14 @@ public class MainApp extends Application {
 		this.isFinished = this.game.isEndOfGame() != 0;
 		
 		System.out.println(game.toString());
-		this.playTurn();		
+		if (!this.isFinished) {
+			this.playTurn();
+		}
+		else {
+			String[] s = {"", "X", "O", "-"};
+			//this.primaryStage.close();
+			System.out.println("Vainqueur : " + s[this.game.isEndOfGame()]);
+		}
 	}
     
     /**

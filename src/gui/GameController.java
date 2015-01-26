@@ -66,14 +66,6 @@ public class GameController {
 		this.mainApp = mainApp;
 	}
 	
-	public void autorun() {
-		//while (!this.mainApp.isFinished) {
-		//	this.callAlgorithm();
-		//}
-		
-		System.out.println(grid0.getChildren());
-	}
-	
 	public void highlightPossibleMoves() {
 		List<Integer> possibleMoves = this.mainApp.game.getSuccessors();
 		Color higlight = Color.GREENYELLOW; 
