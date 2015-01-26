@@ -119,6 +119,7 @@ public class MonteCarloTreeSearch extends Algorithm {
 		int p = this.game.getCurrentPlayer();
 
 		this.tree = new Node(null, -1, p, 0);
+		
 	}
 
 	public int run(int timeout) {

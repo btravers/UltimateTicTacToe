@@ -289,82 +289,110 @@ public class Game {
 		
 		int adversary = player == CIRCLE ? CROSS : CIRCLE;
 		
+		// On évalue chaque tic tac toe intermédiaire
 		for (int i=0; i<9; i++) {
 			if (this.daddyTable[i] == player) {
-				babyTableEval[i] = 1000;
+				babyTableEval[i] = 100;
 				break;
 			} else if (this.daddyTable[i] == adversary) {
-				babyTableEval[i] = -1000;
+				babyTableEval[i] = -100;
 				break;
 			} else if (this.daddyTable[i] == DRAW) {
 				babyTableEval[i] = 0;
 				break;
 			} else if (this.daddyTable[i] == EMPTY) {
-				int start = i*9;
+				int startIndex = i*9;
 				
 				babyTableEval[i] = 0;
 				
-				for (int j=start; j<start+3; j++) {
-					if ((babyTable[j] == EMPTY || babyTable[j] == player) && (babyTable[j+3] == EMPTY || babyTable[j+3] == player) && (babyTable[j+6] == EMPTY || babyTable[j+6] == player) ) {
+				// On vérifie la formation de colonnes
+				for (int j=startIndex; j<startIndex+3; j++) {
+					// Colonnes formées par l'ordinateur
+					if ((this.babyTable[j] == EMPTY || this.babyTable[j] == player) 
+							&& (this.babyTable[j+3] == EMPTY || this.babyTable[j+3] == player) 
+							&& (this.babyTable[j+6] == EMPTY || this.babyTable[j+6] == player) ) {
 						for (int k=j; k<j+9; k+=3) {
-							if (babyTable[k] == player) {
+							if (this.babyTable[k] == player) {
 								babyTableEval[i]++;
 							}
 						}
+						
 					}
-					if ((babyTable[j] == EMPTY || babyTable[j] == adversary) && (babyTable[j+3] == EMPTY || babyTable[j+3] == adversary) && (babyTable[j+6] == EMPTY || babyTable[j+6] == adversary) ) {
+					// Colonnes formées par l'adversaire
+					if ((this.babyTable[j] == EMPTY || this.babyTable[j] == adversary) 
+							&& (this.babyTable[j+3] == EMPTY || this.babyTable[j+3] == adversary) 
+							&& (this.babyTable[j+6] == EMPTY || this.babyTable[j+6] == adversary) ) {
 						for (int k=j; k<j+9; k+=3) {
-							if (babyTable[k] == adversary) {
+							if (this.babyTable[k] == adversary) {
 								babyTableEval[i]--;
 							}
 						}
 					}
 				}
 				
-				for (int j=start; j<start+9; j+=3) {
-					if ((babyTable[j] == EMPTY || babyTable[j] == player) && (babyTable[j+1] == EMPTY || babyTable[j+1] == player) && (babyTable[j+2] == EMPTY || babyTable[j+2] == player) ) {
+				// On vérifie la formation de lignes
+				for (int j=startIndex; j<startIndex+9; j+=3) {
+					// Lignes formées par l'ordinateur
+					if ((this.babyTable[j] == EMPTY || this.babyTable[j] == player) 
+							&& (this.babyTable[j+1] == EMPTY || this.babyTable[j+1] == player) 
+							&& (this.babyTable[j+2] == EMPTY || this.babyTable[j+2] == player) ) {
 						for (int k=j; k<j+3; k++) {
-							if (babyTable[k] == player) {
+							if (this.babyTable[k] == player) {
 								babyTableEval[i]++;
 							}
 						}
 					}
-					if ((babyTable[j] == EMPTY || babyTable[j] == adversary) && (babyTable[j+1] == EMPTY || babyTable[j+1] == adversary) && (babyTable[j+2] == EMPTY || babyTable[j+2] == adversary) ) {
+					// Lignes formées par l'adversaire
+					if ((this.babyTable[j] == EMPTY || this.babyTable[j] == adversary) 
+							&& (this.babyTable[j+1] == EMPTY || this.babyTable[j+1] == adversary) 
+							&& (this.babyTable[j+2] == EMPTY || this.babyTable[j+2] == adversary) ) {
 						for (int k=j; k<j+3; k++) {
-							if (babyTable[k] == adversary) {
+							if (this.babyTable[k] == adversary) {
 								babyTableEval[i]--;
 							}
 						}
 					}
 				}
 				
-				if ((babyTable[0] == EMPTY || babyTable[0] == player) && (babyTable[4] == EMPTY || babyTable[4] == player) && (babyTable[8] == EMPTY || babyTable[8] == player) ) {
-					for (int k=start; k<start+9; k+=4) {
-						if (babyTable[k] == player) {
+				// On vérifie la formation de la diagonale par l'ordinateur
+				if ((this.babyTable[0] == EMPTY || this.babyTable[0] == player) 
+						&& (this.babyTable[4] == EMPTY || this.babyTable[4] == player) 
+						&& (this.babyTable[8] == EMPTY || this.babyTable[8] == player) ) {
+					for (int k=startIndex; k<startIndex+9; k+=4) {
+						if (this.babyTable[k] == player) {
 							babyTableEval[i]++;
 						}
 					}
 				}
 				
-				if ((babyTable[0] == EMPTY || babyTable[0] == adversary) && (babyTable[4] == EMPTY || babyTable[4] == adversary) && (babyTable[8] == EMPTY || babyTable[8] == adversary) ) {
-					for (int k=start; k<start+9; k+=4) {
-						if (babyTable[k] == adversary) {
+				// On vérifie la formation de la diagonale par l'adversaire
+				if ((this.babyTable[0] == EMPTY || this.babyTable[0] == adversary) 
+						&& (this.babyTable[4] == EMPTY || this.babyTable[4] == adversary) 
+						&& (this.babyTable[8] == EMPTY || this.babyTable[8] == adversary) ) {
+					for (int k=startIndex; k<startIndex+9; k+=4) {
+						if (this.babyTable[k] == adversary) {
 							babyTableEval[i]--;
 						}
 					}
 				}
 				
-				if ((babyTable[2] == EMPTY || babyTable[2] == player) && (babyTable[4] == EMPTY || babyTable[4] == player) && (babyTable[6] == EMPTY || babyTable[6] == player) ) {
-					for (int k=start+2; k<start+7; k+=2) {
-						if (babyTable[k] == player) {
+				// On vérifie la formation de l'anti diagonale par l'ordinateur
+				if ((this.babyTable[2] == EMPTY || this.babyTable[2] == player) 
+						&& (this.babyTable[4] == EMPTY || this.babyTable[4] == player) 
+						&& (this.babyTable[6] == EMPTY || this.babyTable[6] == player) ) {
+					for (int k=startIndex+2; k<startIndex+7; k+=2) {
+						if (this.babyTable[k] == player) {
 							babyTableEval[i]++;
 						}
 					}
 				}
 				
-				if ((babyTable[0] == EMPTY || babyTable[0] == adversary) && (babyTable[4] == EMPTY || babyTable[4] == adversary) && (babyTable[8] == EMPTY || babyTable[8] == adversary) ) {
-					for (int k=start+2; k<start+7; k+=2) {
-						if (babyTable[k] == adversary) {
+				// On vérifie la formation de l'anti diagonale par l'adversaire
+				if ((this.babyTable[0] == EMPTY || this.babyTable[0] == adversary) 
+						&& (this.babyTable[4] == EMPTY || this.babyTable[4] == adversary) 
+						&& (this.babyTable[8] == EMPTY || this.babyTable[8] == adversary) ) {
+					for (int k=startIndex+2; k<startIndex+7; k+=2) {
+						if (this.babyTable[k] == adversary) {
 							babyTableEval[i]--;
 						}
 					}
@@ -372,71 +400,62 @@ public class Game {
 			}
 		}
 		
+		// Le résultat de l'évaluation du plateau.
 		int res = 0;
 		
+		// On évalue la formation de grandes colonnes.
 		for (int i=0; i<3; i++) {
 			List<Byte> tmp = new ArrayList<Byte>();
 			for (int j=0; j<9; j+=3) {
-				tmp.add(daddyTable[j]);
+				tmp.add(daddyTable[i+j]);
 			}
 			
 			if (tmp.contains(DRAW) || (tmp.contains(CIRCLE) && tmp.contains(CROSS))) {
 				break;
 			}
 			
-			res += babyTableEval[i] + babyTableEval[i+3] + babyTableEval[i+6];
+			for (int j=0; j<9; j+=3) {
+				res += babyTableEval[i+j];
+			}
 		}
 		
+		// On évalue la formation de grandes lignes.
 		for (int i=0; i<9; i+=3) {
 			List<Byte> tmp = new ArrayList<Byte>();
 			for (int j=0; j<3; j++) {
-				tmp.add(daddyTable[j]);
+				tmp.add(daddyTable[i+j]);
 			}
 			
 			if (tmp.contains(DRAW) || (tmp.contains(CIRCLE) && tmp.contains(CROSS))) {
 				break;
 			}
 			
-			res += babyTableEval[i] + babyTableEval[i+1] + babyTableEval[i+2];
+			for (int j=0; j<3; j++) {
+				res += babyTableEval[i+j];
+			}
 		}
 		
+		// On évalue la formation de grandes diagonales.
 		List<Byte> tmp = new ArrayList<Byte>();
 		for (int j=0; j<9; j+=4) {
 			tmp.add(daddyTable[j]);
 		}
 		if (!(tmp.contains(DRAW) || (tmp.contains(CIRCLE) && tmp.contains(CROSS)))) {
-			res += babyTableEval[0] + babyTableEval[4] + babyTableEval[8];
+			for (int j=0; j<9; j+=4) {
+				res += babyTableEval[j];
+			}
 		}
 		
+		// On évalue la formation de grandes anti diagonales.
 		tmp.clear();
 		for (int j=2; j<7; j+=2) {
 			tmp.add(daddyTable[j]);
 		}
 		if (!(tmp.contains(DRAW) || (tmp.contains(CIRCLE) && tmp.contains(CROSS)))) {
-			res += babyTableEval[2] + babyTableEval[4] + babyTableEval[6];
-		}
-		
-		/*for (int i=0; i<3; i++) {
-			if (daddyTable[i] == DRAW || daddyTable[i+3] == DRAW || daddyTable[i+6] == DRAW) {
-				break;
+			for (int j=2; j<7; j+=2) {
+				res += babyTableEval[j];
 			}
-			res += babyTableEval[i] + babyTableEval[i+3] + babyTableEval[i+6];
 		}
-		
-		for (int i=0; i<9; i+=3) {
-			if (daddyTable[i] == DRAW || daddyTable[i+1] == DRAW || daddyTable[i+2] == DRAW) {
-				break;
-			}
-			res += babyTableEval[i] + babyTableEval[i+1] + babyTableEval[i+2];
-		}
-		
-		if (!(daddyTable[0] == DRAW || daddyTable[4] == DRAW || daddyTable[8] == DRAW)) {
-			res += babyTableEval[0] + babyTableEval[4] + babyTableEval[8];
-		}
-		
-		if (!(daddyTable[2] == DRAW || daddyTable[4] == DRAW || daddyTable[6] == DRAW)) {
-			res += babyTableEval[2] + babyTableEval[4] + babyTableEval[6];
-		}*/
 		
 		return res;
 	}
