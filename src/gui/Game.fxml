@@ -37,6 +37,17 @@
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
+               <children>
+                  <StackPane fx:id="b00" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" />
+                  <StackPane fx:id="b01" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="1" />
+                  <StackPane fx:id="b02" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="2" />
+                  <StackPane fx:id="b03" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.rowIndex="1" />
+                  <StackPane fx:id="b04" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <StackPane fx:id="b05" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <StackPane fx:id="b06" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.rowIndex="2" />
+                  <StackPane fx:id="b07" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <StackPane fx:id="b08" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+               </children>
             </GridPane>
             <GridPane fx:id="grid1" gridLinesVisible="true" GridPane.columnIndex="1">
               <columnConstraints>
@@ -52,108 +63,196 @@
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
+               <children>
+                  <StackPane fx:id="b09" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" />
+                  <StackPane fx:id="b10" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="1" />
+                  <StackPane fx:id="b11" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="2" />
+                  <StackPane fx:id="b12" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.rowIndex="1" />
+                  <StackPane fx:id="b13" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <StackPane fx:id="b14" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <StackPane fx:id="b15" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.rowIndex="2" />
+                  <StackPane fx:id="b16" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <StackPane fx:id="b17" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+               </children>
             </GridPane>
-            <GridPane fx:id="grid2" gridLinesVisible="true" GridPane.columnIndex="2">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <GridPane fx:id="grid2" alignment="CENTER" gridLinesVisible="true" GridPane.columnIndex="2">
+               <children>
+                  <StackPane fx:id="b18" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" />
+                  <StackPane fx:id="b19" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="1" />
+                  <StackPane fx:id="b20" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="2" />
+                  <StackPane fx:id="b21" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.rowIndex="1" />
+                  <StackPane fx:id="b22" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <StackPane fx:id="b23" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <StackPane fx:id="b24" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.rowIndex="2" />
+                  <StackPane fx:id="b25" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <StackPane fx:id="b26" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+               </children>
+               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </GridPane>
-            <GridPane fx:id="grid3" gridLinesVisible="true" GridPane.rowIndex="1">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <GridPane fx:id="grid3" alignment="CENTER" gridLinesVisible="true" GridPane.rowIndex="1">
+               <children>
+                  <StackPane fx:id="b27" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" />
+                  <StackPane fx:id="b28" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="1" />
+                  <StackPane fx:id="b29" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="2" />
+                  <StackPane fx:id="b30" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.rowIndex="1" />
+                  <StackPane fx:id="b31" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <StackPane fx:id="b32" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <StackPane fx:id="b33" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.rowIndex="2" />
+                  <StackPane fx:id="b34" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <StackPane fx:id="b35" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+               </children>
+               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </GridPane>
-            <GridPane fx:id="grid4" gridLinesVisible="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <GridPane fx:id="grid4" alignment="CENTER" gridLinesVisible="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <StackPane fx:id="b36" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" />
+                  <StackPane fx:id="b37" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="1" />
+                  <StackPane fx:id="b38" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="2" />
+                  <StackPane fx:id="b39" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.rowIndex="1" />
+                  <StackPane fx:id="b40" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <StackPane fx:id="b41" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <StackPane fx:id="b42" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.rowIndex="2" />
+                  <StackPane fx:id="b43" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <StackPane fx:id="b44" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+               </children>
+               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </GridPane>
-            <GridPane fx:id="grid5" gridLinesVisible="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <GridPane fx:id="grid5" alignment="CENTER" gridLinesVisible="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <children>
+                  <StackPane fx:id="b45" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" />
+                  <StackPane fx:id="b46" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="1" />
+                  <StackPane fx:id="b47" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="2" />
+                  <StackPane fx:id="b48" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.rowIndex="1" />
+                  <StackPane fx:id="b49" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <StackPane fx:id="b50" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <StackPane fx:id="b51" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.rowIndex="2" />
+                  <StackPane fx:id="b52" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <StackPane fx:id="b53" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+               </children>
+               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </GridPane>
-            <GridPane fx:id="grid6" gridLinesVisible="true" GridPane.rowIndex="2">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <GridPane fx:id="grid6" alignment="CENTER" gridLinesVisible="true" GridPane.rowIndex="2">
+               <children>
+                  <StackPane fx:id="b54" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" />
+                  <StackPane fx:id="b55" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="1" />
+                  <StackPane fx:id="b56" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="2" />
+                  <StackPane fx:id="b57" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.rowIndex="1" />
+                  <StackPane fx:id="b58" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <StackPane fx:id="b59" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <StackPane fx:id="b60" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.rowIndex="2" />
+                  <StackPane fx:id="b61" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <StackPane fx:id="b62" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+               </children>
+               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </GridPane>
-            <GridPane fx:id="grid7" gridLinesVisible="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <GridPane fx:id="grid7" alignment="CENTER" gridLinesVisible="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <StackPane fx:id="b63" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" />
+                  <StackPane fx:id="b64" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="1" />
+                  <StackPane fx:id="b65" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="2" />
+                  <StackPane fx:id="b66" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.rowIndex="1" />
+                  <StackPane fx:id="b67" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <StackPane fx:id="b68" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <StackPane fx:id="b69" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.rowIndex="2" />
+                  <StackPane fx:id="b70" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <StackPane fx:id="b71" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+               </children>
+               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </GridPane>
-            <GridPane fx:id="grid8" gridLinesVisible="true" GridPane.columnIndex="2" GridPane.rowIndex="2">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <GridPane fx:id="grid8" alignment="CENTER" gridLinesVisible="true" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <children>
+                  <StackPane fx:id="b72" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" />
+                  <StackPane fx:id="b73" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="1" />
+                  <StackPane fx:id="b74" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="2" />
+                  <StackPane fx:id="b75" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.rowIndex="1" />
+                  <StackPane fx:id="b76" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <StackPane fx:id="b77" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <StackPane fx:id="b78" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.rowIndex="2" />
+                  <StackPane fx:id="b79" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <StackPane fx:id="b80" onMouseClicked="#onMouseClick" style="-fx-pref-height: 60; -fx-pref-width: 60;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+               </children>
+               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>

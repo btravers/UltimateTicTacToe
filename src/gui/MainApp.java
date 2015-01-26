@@ -5,7 +5,9 @@ import game.Game;
 import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -16,12 +18,13 @@ public class MainApp extends Application {
 
 	private Stage primaryStage;
     private BorderPane rootLayout;
+    private GameController gameController;
     
     static final int TIMEOUT = 100;
     Game game;
     Algorithm algorithm;
     int player;
-    int tour = 0;
+    int turn = 0;
     boolean isFinished;
     
 	
@@ -49,7 +52,7 @@ public class MainApp extends Application {
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
-            primaryStage.show();
+            //primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -66,12 +69,19 @@ public class MainApp extends Application {
             AnchorPane menu = (AnchorPane) loader.load();
 
             // Set the menu into the center of root layout.
-            rootLayout.setCenter(menu);
+            Stage stage = new Stage();
+            stage.setTitle("Choose turn");
+            stage.setScene(new Scene(menu));
+            stage.setOnCloseRequest(e -> {
+                System.exit(0);
+            });
+            stage.show();
+            //rootLayout.setCenter(menu);
             
             this.game = null;
             this.algorithm = null;
             this.player = -1;
-            this.tour = 0;
+            this.turn = 0;
             this.isFinished = false;
             
             MenuController controller = loader.getController();
@@ -82,30 +92,48 @@ public class MainApp extends Application {
         }
     }
     
-    private GameController c;
-    
     public void showGame() {
     	try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("Game.fxml"));
             AnchorPane game = (AnchorPane) loader.load();
-
-            // Set the menu into the center of root layout.
-            rootLayout.setCenter(game);
             
             GameController controller = loader.getController();
             controller.setMainApp(this);
-            c = controller;
+            this.gameController = controller;
+
+            // Set the game into the center of root layout.
+            primaryStage.setScene(new Scene(game));
+            primaryStage.show();
+            //rootLayout.setCenter(game);
             
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     
-    /*public void autorun() {
-        c.autorun();    	
-    }*/
+    public void autorun() {
+        gameController.autorun();    	
+    }
+    
+    public void playTurn() {
+    	if (this.turn%2 != this.player) {
+    		this.gameController.callAlgorithm();
+    	}
+    	else {
+    		this.gameController.highlightPossibleMoves();
+    	}
+    }
+    
+	public void play(int move) {
+		this.game.play(move);
+		this.turn++;
+		this.isFinished = this.game.isEndOfGame() != 0;
+		
+		System.out.println(game.toString());
+		this.playTurn();		
+	}
     
     /**
      * Returns the main stage.

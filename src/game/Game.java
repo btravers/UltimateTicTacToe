@@ -79,6 +79,10 @@ public class Game {
 		return this.currentPlayer;
 	}
 	
+	public byte getDaddySquareValue(int index) {
+		return this.daddyTable[Math.min(index, this.daddyTable.length - 1)];
+	}
+	
 	public List<Integer> getSuccessors() {
 		List<Integer> successors = new ArrayList<Integer>();
 		

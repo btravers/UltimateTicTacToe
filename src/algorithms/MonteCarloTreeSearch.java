@@ -13,8 +13,8 @@ public class MonteCarloTreeSearch extends Algorithm {
 		List<Node> children;
 		int move;
 		int player;
-		int s;
-		int n;
+		int s; // score of the node
+		int n; // number of times visited
 		int depth;
 
 		public Node(Node parent, int m, int player, int depth) {
@@ -136,6 +136,8 @@ public class MonteCarloTreeSearch extends Algorithm {
 		Node successor = this.tree.select();
 
 		System.out.println("Nombre de playout execute : " + this.tree.n);
+		
+		System.out.println("Coup retenu : " + successor.move);
 
 		return successor.move;
 	}

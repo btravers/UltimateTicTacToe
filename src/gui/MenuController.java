@@ -1,6 +1,7 @@
 package gui;
 
 import game.Game;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 
@@ -21,18 +22,19 @@ public class MenuController {
 	}
 	
 	public void createAlphaBeta() {
-		this.mainApp.game = new Game();
-		this.mainApp.algorithm = Algorithm.ALPHA_BETA;
-		this.mainApp.player = this.first.isSelected() ? 0 : 1;
-		this.mainApp.showGame();
+		this.createGame(Algorithm.ALPHA_BETA);
 	}
 	
-	public void createMonteCarloTreeSearch() {
+	public void createMonteCarloTreeSearch(ActionEvent event) {
+		this.createGame(Algorithm.MONTE_CARLO_TREE_SEARCH);
+	}
+	
+	private void createGame(Algorithm algoritm) {
 		this.mainApp.game = new Game();
-		this.mainApp.algorithm = Algorithm.MONTE_CARLO_TREE_SEARCH;
+		this.mainApp.algorithm = algoritm;
 		this.mainApp.player = this.first.isSelected() ? 0 : 1;
 		this.mainApp.showGame();
-		//this.mainApp.autorun();
+		this.mainApp.playTurn();
 	}
 	
 	public void setMainApp(MainApp mainApp) {
