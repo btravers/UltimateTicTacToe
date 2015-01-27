@@ -83,6 +83,10 @@ public class Game {
 		return this.daddyTable[Math.min(index, this.daddyTable.length - 1)];
 	}
 	
+	public byte getBabySquareValue(int index) {
+		return this.babyTable[Math.min(index, this.babyTable.length - 1)];
+	}
+	
 	public List<Integer> getSuccessors() {
 		List<Integer> successors = new ArrayList<Integer>();
 		
@@ -266,18 +270,18 @@ public class Game {
 				babyTableEval[i] = 0;
 				break;
 			} else if (this.daddyTable[i] == EMPTY) {
-				int nbX = 0;
-				int nbO = 0;
+				int nbPlayer = 0;
+				int nbAdversary = 0;
 				int start = i*9;
 				int end = start+9;
 				for (int j=start; j<end; j++) {
 					if (this.babyTable[j] == player) {
-						nbX++;
+						nbPlayer++;
 					} else if (this.babyTable[j] == adversary) {
-						nbO++;
+						nbAdversary++;
 					}
 				}
-				babyTableEval[i] = (int) (Math.pow(nbX, 2) - Math.pow(nbO, 2));
+				babyTableEval[i] = (int) (Math.pow(nbPlayer, 2) - Math.pow(nbAdversary, 2));
 			}
 		}
 		

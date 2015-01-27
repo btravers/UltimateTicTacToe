@@ -5,16 +5,12 @@ import java.util.List;
 import game.Game;
 import algorithms.AlphaBeta;
 import algorithms.MonteCarloTreeSearch;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -22,7 +18,7 @@ import javafx.scene.shape.Rectangle;
 public class GameController {
 
 	private MainApp mainApp;
-	
+
 	@FXML private GridPane grid0;
 	@FXML private GridPane grid1;
 	@FXML private GridPane grid2;
@@ -32,7 +28,7 @@ public class GameController {
 	@FXML private GridPane grid6;
 	@FXML private GridPane grid7;
 	@FXML private GridPane grid8;
-	
+
 	private GridPane[] gridPanes;
 
 	public GameController() {
@@ -55,9 +51,8 @@ public class GameController {
 				algo = new MonteCarloTreeSearch(this.mainApp.game);
 				break;
 			}
-			
+
 			int move = algo.run(MainApp.TIMEOUT);
-			this.updateDisplay(move);
 			this.mainApp.play(move);
 		}
 	}
@@ -65,11 +60,11 @@ public class GameController {
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 	}
-	
+
 	public void highlightPossibleMoves() {
 		List<Integer> possibleMoves = this.mainApp.game.getSuccessors();
 		Color higlight = Color.GREENYELLOW; 
-		
+
 		int counter = 0;
 		for (int i = 0; i < gridPanes.length; i++) {
 			for (Node pane : gridPanes[i].getChildren()) {
@@ -83,79 +78,59 @@ public class GameController {
 					}
 					else {
 						((StackPane) pane).getChildren().removeIf((n) -> 
-							n instanceof Rectangle && ((Rectangle) n).getFill() == higlight);
+						n instanceof Rectangle && ((Rectangle) n).getFill() == higlight);
 					}
-					
+
 					counter++;
 				}
 			}
 		}
 	}
-	
+
 	public void onMouseClick(Event event) {
-		String id = ((Node) event.getSource()).getId();
-		int move = Integer.parseInt(id.substring(id.length() - 2));
-		
-		List<Integer> possibleMoves = this.mainApp.game.getSuccessors();
-		
-		if (possibleMoves.contains(move)) {
-			this.updateDisplay(move);
-			this.mainApp.play(move);
+		if (this.mainApp.turn%2 == this.mainApp.player) {
+			String id = ((Node) event.getSource()).getId();
+			int move = Integer.parseInt(id.substring(id.length() - 2));
+
+			List<Integer> possibleMoves = this.mainApp.game.getSuccessors();
+
+			if (possibleMoves.contains(move)) {
+				this.mainApp.play(move);
+			}
 		}
 	}
-	
-	private void updateDisplay(int move) {
+
+	public void update() {
 		Image Xtoken = new Image("file:resources/images/cross.png");
 		Image Otoken = new Image("file:resources/images/circle.png");
-		
-		int daddySquare = move / 9;
-		int babySquare = move - daddySquare * 9;
 
-		// Attention, ceci est très sale. Ne pas reproduire à la maison !
-		// updateDisplay est appelé avant que le coup ne soit joué, donc daddyTable n'est pas à jour.
-		// J'ai cloné le jeu pour pouvoir joué le coup et avoir la bonne valeur...
-		Game g = this.mainApp.game.clone();
-		g.play(move);
-		byte value = g.getDaddySquareValue(daddySquare);
-		
-		if (value == Game.EMPTY) {
-			final StackPane p = (StackPane) this.gridPanes[daddySquare].getChildren().get(babySquare);
-			
-			if (this.mainApp.game.getCurrentPlayer() == Game.CROSS) {
-				p.getChildren().add(new ImageView(Xtoken));
-			}
-			else {
-				p.getChildren().add(new ImageView(Otoken));
-			}
-		}
-		else if (value == Game.CROSS) {
-			for (Node p : this.gridPanes[daddySquare].getChildren()) {
-				if (p instanceof StackPane) {
-					((StackPane) p).getChildren().clear();
-					((StackPane) p).getChildren().add(new ImageView(Xtoken));
-				}
-			}
-		}
-		else if (value == Game.CIRCLE) {
-			for (Node p : this.gridPanes[daddySquare].getChildren()) {
-				if (p instanceof StackPane) {
-					((StackPane) p).getChildren().clear();
-					((StackPane) p).getChildren().add(new ImageView(Otoken));
-				}
-			}
-		}
-		else {
-			for (Node p : this.gridPanes[daddySquare].getChildren()) {
-				if (p instanceof StackPane) {
-					((StackPane) p).getChildren().clear();
-					
+		for (int i=0; i<9; i++) {
+			for (int j=0; j<9; j++) {
+				final StackPane p = (StackPane) this.gridPanes[i].getChildren().get(j);
+				p.getChildren().clear();
+
+				if (this.mainApp.game.getDaddySquareValue(i) == Game.CROSS) {
+					p.getChildren().add(new ImageView(Xtoken));
+				} else if (this.mainApp.game.getDaddySquareValue(i) == Game.CIRCLE) {
+					p.getChildren().add(new ImageView(Otoken));
+				} else if (this.mainApp.game.getDaddySquareValue(i) == Game.DRAW) {
 					Rectangle r = new Rectangle();
 					r.setFill(Color.GREY);
 					r.setHeight(60.0);
 					r.setWidth(60.0);
-					((StackPane) p).getChildren().add(r);
+					p.getChildren().add(r);
+				} else {
+					if (this.mainApp.game.getBabySquareValue(i*9+j) == Game.CROSS) {
+						p.getChildren().add(new ImageView(Xtoken));
+					} else if (this.mainApp.game.getBabySquareValue(i*9+j) == Game.CIRCLE) {
+						p.getChildren().add(new ImageView(Otoken));
+					}
 				}
 			}
+		}
+
+		if (this.mainApp.turn%2 == this.mainApp.player) {
+			this.highlightPossibleMoves();
 		}
 	}
 }
