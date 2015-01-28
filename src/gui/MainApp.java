@@ -21,7 +21,6 @@ public class MainApp extends Application {
 	private GameController gameController;
 
 	GameTask gameTask;
-	
 	Updater updater;
 
 	Thread gameThread;
@@ -31,7 +30,7 @@ public class MainApp extends Application {
 	Game game;
 	Algorithm algorithm;
 	int player;
-	int turn = 0;
+	int turn;
 	boolean isFinished;
 
 	@Override
@@ -102,20 +101,10 @@ public class MainApp extends Application {
 			controller.setMainApp(this);
 			this.gameController = controller;
 
-			this.turn = 0;
-			this.isFinished = false;
-
 			// Set the game into the center of root layout.
 			primaryStage.setScene(new Scene(game));
 			primaryStage.show();
 			
-			if (this.gameThread != null) {
-				this.gameThread.interrupt();
-			}
-			if (this.updaterThread != null) {
-				this.updaterThread.interrupt();
-			}
-
 			this.gameTask = new GameTask();
 			this.gameThread = new Thread(this.gameTask);
 			this.gameThread.start();
@@ -135,8 +124,7 @@ public class MainApp extends Application {
 
 		@Override
 		protected Void call() throws Exception {
-			// TODO Auto-generated method stub
-			while (!isFinished) {
+			while (!isFinished && !Thread.currentThread().isInterrupted()) {
 				if (turn%2 != player) {
 					gameController.callAlgorithm();
 				} else {
@@ -154,12 +142,11 @@ public class MainApp extends Application {
 
 		@Override
 		public void run() {
-			while (true) {
+			while (!Thread.currentThread().isInterrupted()) {
 				Platform.runLater(new Runnable() {
 
 					@Override
 					public void run() {
-						System.out.println("Update");
 						gameController.update();
 					}
 
@@ -178,8 +165,6 @@ public class MainApp extends Application {
 		this.game.play(move);
 		this.turn++;
 		this.isFinished = this.game.isEndOfGame() != 0;
-
-		System.out.println(game.toString());
 	}
 
 	/**
