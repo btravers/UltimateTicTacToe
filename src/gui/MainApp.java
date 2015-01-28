@@ -74,7 +74,7 @@ public class MainApp extends Application {
 
 			// Set the menu into the center of root layout.
 			Stage stage = new Stage();
-			stage.setTitle("Choose turn");
+			stage.setTitle("Ultimate Tic Tac Toe - Menu");
 			stage.getIcons().add(new Image("file:resources/images/logo.png"));
 			stage.setScene(new Scene(menu));
 			stage.setOnCloseRequest(e -> {
